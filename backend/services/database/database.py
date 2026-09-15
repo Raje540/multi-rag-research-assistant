@@ -1,0 +1,38 @@
+from backend.services.database.connection import get_connection
+
+
+def create_tables():
+    conn = get_connection()
+    cursor = conn.cursor()
+
+    cursor.execute("""
+        CREATE TABLE IF NOT EXISTS projects (
+            project_id SERIAL PRIMARY KEY,
+            name VARCHAR(255) NOT NULL,
+            research_domain VARCHAR(255) NOT NULL,
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        );
+    """)
+
+    cursor.execute("""
+        CREATE TABLE IF NOT EXISTS papers (
+            paper_id SERIAL PRIMARY KEY,
+            project_id INTEGER NOT NULL,
+            title TEXT,
+            authors TEXT,
+            year INTEGER,
+            filename VARCHAR(255) NOT NULL,
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+            CONSTRAINT fk_project
+                FOREIGN KEY (project_id)
+                REFERENCES projects(project_id)
+                ON DELETE CASCADE
+        );
+    """)
+
+    conn.commit()
+    cursor.close()
+    conn.close()
+
+    print("Database tables created successfully")
