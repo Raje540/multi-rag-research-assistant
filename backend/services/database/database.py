@@ -36,3 +36,52 @@ def create_tables():
     conn.close()
 
     print("Database tables created successfully")
+
+
+def get_paper_count(project_id):
+    conn = get_connection()
+    cursor = conn.cursor()
+
+    cursor.execute(
+        """
+        SELECT COUNT(*)
+        FROM papers
+        WHERE project_id = %s;
+        """,
+        (project_id,)
+    )
+
+    count = cursor.fetchone()[0]
+
+    cursor.close()
+    conn.close()
+
+    return count
+
+
+def add_paper(project_id, title, authors, year, filename):
+    conn = get_connection()
+    cursor = conn.cursor()
+
+    cursor.execute(
+        """
+        INSERT INTO papers (
+            project_id,
+            title,
+            authors,
+            year,
+            filename
+        )
+        VALUES (%s, %s, %s, %s, %s)
+        RETURNING paper_id;
+        """,
+        (project_id, title, authors, year, filename)
+    )
+
+    paper_id = cursor.fetchone()[0]
+
+    conn.commit()
+    cursor.close()
+    conn.close()
+
+    return paper_id
