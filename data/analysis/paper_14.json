@@ -1,0 +1,163 @@
+{
+  "paper_id": 14,
+  "title": "A ConvNet for the 2020s",
+  "code_version": "18",
+  "analyzed_at": "2026-11-12T13:24:19Z",
+  "model": "llama3.2:3b",
+  "dimensions": {
+    "Novelty": {
+      "summary": "We propose ConvNeXts, a pure ConvNet model that can compete favorably with state-of-the-art hierarchical vision Transformers across multiple computer vision benchmarks, while retaining the simplicity and efﬁciency of standard ConvNets.",
+      "method": "extractive",
+      "from_tagged_section": true,
+      "citation": "[Paper 14, Page 9]",
+      "evidence": [
+        {
+          "page": 9,
+          "section": "conclusion",
+          "category": "Other",
+          "text": "6. Conclusions In the 2020s, vision Transformers, particularly hierarchical ones such as Swin Transformers, began to overtake ConvNets as the favored choice for generic vision backbones. The widely held belief is that vision Transformers are more accurate, efﬁcient, and scalable than ConvNets. We propose ConvNeXts, a pure ConvNet model that can compete favorably with state-of-the-art hierarchical vision Transformers across multiple computer vision benchmarks, while retaining the simplicity and efﬁciency of standard ConvNets. In some ways, our observations are surprising while our ConvNeXt model itself is not completely new — many design choices have all been examined separately over the last"
+        }
+      ]
+    },
+    "Methodology": {
+      "summary": "ConvNeXt, hierarchical vision Transformer.",
+      "method": "llm",
+      "from_tagged_section": true,
+      "citation": "[Paper 14, Page 2, 11]",
+      "evidence": [
+        {
+          "page": 2,
+          "section": "introduction",
+          "category": "Sentence",
+          "text": "In this work, we investigate the architectural distinctions between ConvNets and Transformers and try to identify the confounding variables when comparing the network performance."
+        },
+        {
+          "page": 2,
+          "section": "introduction",
+          "category": "Sentence",
+          "text": "We gradually “modernize” the architecture to the construction of a hierarchical vision Transformer (e.g."
+        },
+        {
+          "page": 2,
+          "section": "introduction",
+          "category": "Sentence",
+          "text": "As a result, we propose a family of pure ConvNets dubbed ConvNeXt."
+        },
+        {
+          "page": 2,
+          "section": "introduction",
+          "category": "Sentence",
+          "text": "We evaluate ConvNeXts on a variety of vision tasks such as ImageNet classiﬁcation [17], object detection/segmentation on COCO [44], and semantic segmentation on ADE20K [92]."
+        },
+        {
+          "page": 11,
+          "section": "methodology",
+          "category": "Methodology",
+          "text": "81.30 4.50 Table 10. Detailed results for modernizing a ResNet-50. Mean and standard deviation are obtained by training the network with three different random seeds. gained by increasing kernel size also seems to saturate at kernel size 5 instead of 7. Using fewer normalization layers also has a bigger gain compared with the ResNet-50 regime (+0.46% vs. +0.14%). model IN-1K acc. Detailed results for modernizing a ResNet-200. D. Detailed"
+        },
+        {
+          "page": 11,
+          "section": "methodology",
+          "category": "Methodology",
+          "text": "25.6 × 106 28.6 × 106 28.3 × 106 Table 9. Detailed architecture speciﬁcations for ResNet-50, ConvNeXt-T and Swin-T. model IN-1K acc. Detailed results for modernizing a ResNet-50. Mean and standard deviation are obtained by training the network with three different random seeds. gained by increasing kernel size"
+        },
+        {
+          "page": 11,
+          "section": "methodology",
+          "category": "Methodology",
+          "text": "pos. 1×1, 96   \u0014 1×1, 384 1×1, 96 \u0015 × 2 res3 28×28   1×1, 128 3×3, 128 1×1, 512  × 4   d7×7, 192 1×1, 768 1×1, 192  × 3   1×1, 192×3 MSA, w7×7, H=6, rel. pos. 1×1, 192   \u0014 1×1, 768 1×1, 192 \u0015 × 2 res4 14×14   1×1, 256 3×3, 256 1×1, 1024  × 6   d7×7, 384 1×1, 1536 1×1, 384  × 9   1×1, 384×3 MSA, w7×7, H=12, rel. pos. 1×1, 384   \u0014 1×1, 1536 1×1, 384 \u0015 × 6 res5 7×7   1×1, 512 3×3, 512 1×1, 2048  × 3   d7×7, 768 1×1, 3072 1×1, 768  × 3   1×1, 768×3 MSA, w7×7, H=24, rel. pos. 1×1, 768   \u0014 1×1, 3072 1×1, 768 \u0015 × 2 FLOPs 4.1 × 109 4.5 × 109 4.5 × 109 # params. 25.6 × 106 28.6 × 106 28.3 × 106 Table 9. Detailed architecture speciﬁcations for ResNet-50, ConvNeXt-"
+        }
+      ]
+    },
+    "Dataset": {
+      "summary": "ImageNet-22K, a larger dataset of 21841 classes, with ∼14M images for pre-training. The paper also uses ImageNet-1K for fine-tuning.",
+      "method": "llm",
+      "from_tagged_section": true,
+      "citation": "[Paper 14, Page 2, 6, 8, 10, 12]",
+      "evidence": [
+        {
+          "page": 6,
+          "section": "empirical evaluations on imagenet",
+          "category": "Sentence",
+          "text": "We also conduct pre-training on ImageNet-22K, a larger dataset of 21841 classes (a superset of the 1000 ImageNet-1K classes) with ∼14M images for pre-training, and then ﬁne-tune the pre-trained model on ImageNet-1K for evaluation."
+        },
+        {
+          "page": 8,
+          "section": "empirical evaluation on downstream tasks",
+          "category": "Sentence",
+          "text": "We ﬁnetune Mask R-CNN [27] and Cascade Mask R-CNN [9] on the COCO dataset with ConvNeXt backbones."
+        },
+        {
+          "page": 10,
+          "section": "experiments",
+          "category": "Sentence",
+          "text": "We report mean corruption error (mCE) for ImageNet-C, corruption error for ImageNet-¯C, and top-1 Accuracy for all other datasets."
+        },
+        {
+          "page": 2,
+          "section": "introduction",
+          "category": "Sentence",
+          "text": "One primary focus of ViT is on the scaling behavior: with the help of larger model and dataset sizes, Transformers can outperform standard ResNets by a signiﬁcant margin."
+        },
+        {
+          "page": 12,
+          "section": "limitations",
+          "category": "Limitations",
+          "text": "G. Societal Impact In the 2020s, research on visual representation learning began to place enormous demands on computing resources. While larger models and datasets improve performance across the board, they also introduce a slew of challenges. ViT, Swin, and ConvNeXt all perform best with their huge model variants. Investigating those model designs inevitably results in an increase in carbon emissions. One important direction, and a motivation for our paper, is to strive for simplicity — with more sophisticated modules, the network’s design space expands enormously, obscuring critical components that contribute to the performance difference. Additionally, large models and datasets present i"
+        },
+        {
+          "page": 12,
+          "section": "limitations",
+          "category": "Limitations",
+          "text": "Transformer will be an interesting research direction. In terms of data, our ﬁndings indicate that ConvNeXt models beneﬁt from pre-training on large-scale datasets. While our method makes use of the publicly available ImageNet-22K dataset, individuals may wish to acquire their own data for pre-training. A more circumspect and responsible approach to data selection is required to avoid potential concerns with data biases."
+        },
+        {
+          "page": 2,
+          "section": "introduction",
+          "category": "Dataset",
+          "text": "Around the same time, the odyssey of neural network design for natural language processing (NLP) took a very different path, as the Transformers replaced recurrent neural networks to become the dominant backbone architecture. Despite the disparity in the task of interest between language and vision domains, the two streams surprisingly converged in the year 2020, as the introduction of Vision Transformers (ViT) completely altered the landscape of network architecture design. Except for the initial “patchify” layer, which splits an image into a sequence of patches, ViT introduces no image-speciﬁc inductive bias and makes minimal changes to the original NLP Transformers. One primary focus of V"
+        }
+      ]
+    },
+    "Results": {
+      "summary": "Additionally, we observe an improved result of 85.5% when further scaling to ConvNeXt-L. Additionally, our ConvNeXt-XL model achieves an accuracy of 87.8% — a decent improvement over ConvNeXt-L at 3842, demonstrating that ConvNeXts are scalable architectures.",
+      "method": "extractive",
+      "from_tagged_section": true,
+      "citation": "[Paper 14, Page 7]",
+      "evidence": [
+        {
+          "page": 7,
+          "section": "results",
+          "category": "Sentence",
+          "text": "Additionally, we observe an improved result of 85.5% when further scaling to ConvNeXt-L."
+        },
+        {
+          "page": 7,
+          "section": "results",
+          "category": "Sentence",
+          "text": "Additionally, our ConvNeXt-XL model achieves an accuracy of 87.8% — a decent improvement over ConvNeXt-L at 3842, demonstrating that ConvNeXts are scalable architectures."
+        }
+      ]
+    },
+    "Limitations": {
+      "summary": "Finally, we discuss the limitations (§F) and societal impact (§G) of our work. We will now employ the ResNeXt design.",
+      "method": "extractive",
+      "from_tagged_section": true,
+      "citation": "[Paper 14, Page 4, 9]",
+      "evidence": [
+        {
+          "page": 9,
+          "section": "appendix",
+          "category": "Other",
+          "text": "Appendix In this Appendix, we provide further experimental details (§A), robustness evaluation results (§B), more modernization experiment results (§C), and a detailed network speciﬁcation (§D). We further benchmark model throughput on A100 GPUs (§E). Finally, we discuss the limitations (§F) and societal impact (§G) of our work."
+        },
+        {
+          "page": 4,
+          "section": "modernizing a convnet: a roadmap",
+          "category": "Other",
+          "text": "egy proposed in ResNeXt, we increase the network width to the same number of channels as Swin-T’s (from 64 to 96). This brings the network performance to 80.5% with increased FLOPs (5.3G). We will now employ the ResNeXt design. 2.4. Inverted Bottleneck One important design in every Transformer block is that it creates an inverted bottleneck, i.e., the hidden dimension of the MLP block is four times wider than the input dimension d3×3, 96➝96 1×1, 384➝96 1×1, 96➝384 d3×3, 384➝384 1×1, 96➝384 1×1, 384➝96 1×1, 96➝384 d3×3, 96➝96 1×1, 384➝96  Figure 3. Block modiﬁcations and resulted speciﬁcations. is a ResNeXt block; in we create an inverted bottleneck block and in the position of the spatial de"
+        }
+      ]
+    }
+  }
+}

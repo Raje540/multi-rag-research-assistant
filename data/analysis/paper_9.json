@@ -1,0 +1,163 @@
+{
+  "paper_id": 9,
+  "title": "Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks",
+  "code_version": "18",
+  "analyzed_at": "2026-11-12T12:43:16Z",
+  "model": "llama3.2:3b",
+  "dimensions": {
+    "Novelty": {
+      "summary": "We build RAG models where the parametric memory is a pre-trained seq2seq transformer, and the non-parametric memory is a dense vector index of Wikipedia, accessed with a pre-trained neural retriever.",
+      "method": "extractive",
+      "from_tagged_section": true,
+      "citation": "[Paper 9, Page 2]",
+      "evidence": [
+        {
+          "page": 2,
+          "section": "introduction",
+          "category": "Other",
+          "text": ". For query x, we use Maximum Inner Product Search (MIPS) to ﬁnd the top-K documents zi. For ﬁnal prediction y, we treat z as a latent variable and marginalize over seq2seq predictions given different documents. but have only explored open-domain extractive question answering. Here, we bring hybrid parametric and non-parametric memory to the “workhorse of NLP,” i.e. sequence-to-sequence (seq2seq) models. We endow pre-trained, parametric-memory generation models with a non-parametric memory through a general-purpose ﬁne-tuning approach which we refer to as retrieval-augmented generation (RAG). We build RAG models where the parametric memory is a pre-trained seq2seq transformer, and the non-pa"
+        }
+      ]
+    },
+    "Methodology": {
+      "summary": "RAG models use a pre-trained seq2seq model as parametric memory and a dense vector index of Wikipedia as non-parametric memory, accessed with a pre-trained neural retriever.",
+      "method": "llm",
+      "from_tagged_section": true,
+      "citation": "[Paper 9, Page 1, 2, 3, 6, 8]",
+      "evidence": [
+        {
+          "page": 2,
+          "section": "methodology",
+          "category": "Sentence",
+          "text": "We explore RAG models, which use the input sequence x to retrieve text documents z and use them as additional context when generating the target sequence y."
+        },
+        {
+          "page": 1,
+          "section": "abstract",
+          "category": "Sentence",
+          "text": "We introduce RAG models where the parametric memory is a pre-trained seq2seq model and the non-parametric memory is a dense vector index of Wikipedia, accessed with a pre-trained neural retriever."
+        },
+        {
+          "page": 2,
+          "section": "introduction",
+          "category": "Sentence",
+          "text": "(y) Question Answering: Answer Generation Retriever pη (Non-Parametric) z4 z3 z2 z1 d(z) Jeopardy Question Generation: Answer Query We combine a pre-trained retriever (Query Encoder + Document Index) with a pre-trained seq2seq model (Generator) and ﬁne-tune end-to-end."
+        },
+        {
+          "page": 2,
+          "section": "introduction",
+          "category": "Sentence",
+          "text": "For query x, we use Maximum Inner Product Search (MIPS) to ﬁnd the top-K documents zi."
+        },
+        {
+          "page": 6,
+          "section": "methodology",
+          "category": "Methodology",
+          "text": "4.4 Fact Veriﬁcation Table 2 shows our results on FEVER. For 3-way classiﬁcation, RAG scores are within 4.3% of state-of-the-art models, which are complex pipeline systems with domain-speciﬁc architectures and substantial engineering, trained using intermediate retrieval supervision, which RAG does not require. 6"
+        },
+        {
+          "page": 8,
+          "section": "methodology",
+          "category": "Methodology",
+          "text": "Factuality Speciﬁcity BART better 7.1% 16.8% RAG better 42.7% 37.4% Both good 11.7% 11.8% Both poor 17.7% 6.9% No majority 20.8% 20.1% MSMARCO Jeopardy QGen Gold 89.6% 90.0% BART 70.7% 32.4% RAG-Token 77.8% 46.8% RAG-Seq. 83.5% 53.8% As FEVER is a classiﬁcation task, both RAG models are equivalent."
+        },
+        {
+          "page": 3,
+          "section": "methodology",
+          "category": "Methodology",
+          "text": "We refer to the BART generator parameters θ as the parametric memory henceforth. 2.4 Training We jointly train the retriever and generator components without any direct supervision on what document should be retrieved. Given a ﬁne-tuning training corpus of input/output pairs (xj, yj), we 3"
+        }
+      ]
+    },
+    "Dataset": {
+      "summary": "TQA Wiki test set, TriviaQA (TQA) and Natural Questions (NQ).",
+      "method": "llm",
+      "from_tagged_section": true,
+      "citation": "[Paper 9, Page 4, 5, 18, 19]",
+      "evidence": [
+        {
+          "page": 4,
+          "section": "experiments",
+          "category": "Sentence",
+          "text": "For TQA, to compare with T5 [52], we also evaluate on the TQA Wiki test set."
+        },
+        {
+          "page": 4,
+          "section": "experiments",
+          "category": "Sentence",
+          "text": "We consider four popular open-domain QA datasets: Natural Questions (NQ) [29], TriviaQA (TQA) [24]."
+        },
+        {
+          "page": 5,
+          "section": "experiments",
+          "category": "Sentence",
+          "text": "We use the splits from SearchQA [10], with 100K train, 14K dev, and 27K test examples."
+        },
+        {
+          "page": 18,
+          "section": "experiments",
+          "category": "Sentence",
+          "text": "For RAG, we also make use of multiple annotation examples for Natural Questions and WebQuestions by training the model with each (q, a) pair separately, leading to a small increase in accuracy."
+        },
+        {
+          "page": 18,
+          "section": "experiments",
+          "category": "Dataset",
+          "text": "To overcome this, we use a pre-processing step where we ﬁrst retrieve the top 1000 documents for each query, and use the answer that most frequently matches the regex pattern as the supervision target. If no matches are found, we resort to a simple heuristic: generate all possible permutations for each regex, replacing non-deterministic symbols in the regex nested tree structure with a whitespace. TriviaQA Evaluation setups The open-domain QA community customarily uses public development datasets as test datasets, as test data for QA datasets is often restricted and dedicated to reading compehension purposes. We report our results using the datasets splits used in DPR [26], which are consist"
+        },
+        {
+          "page": 19,
+          "section": "experiments",
+          "category": "Results",
+          "text": "Perez et al. [46] also found spurious retrieval results when optimizing a retrieval component in order to improve performance on downstream tasks. I Number of instances per dataset The number of training, development and test datapoints in each of our datasets is shown in Table 7. 19"
+        },
+        {
+          "page": 18,
+          "section": "experiments",
+          "category": "Dataset",
+          "text": "For TriviaQA, this test dataset is the public TriviaQA Web Development split. Roberts et al. [52] used the TriviaQA ofﬁcial Wikipedia test set instead. Févry et al. [14] follow this convention in order to compare with Roberts et al. [52] (See appendix of [14]). We report results on both test sets to enable fair comparison to both approaches. We ﬁnd that our performance is much higher using the ofﬁcial Wiki test set, rather than the more conventional open-domain test set, which we attribute to the ofﬁcial Wiki test set questions being simpler to answer from Wikipedia. E Further Details on FEVER For FEVER classiﬁcation, we follow the practice from [32], and ﬁrst re-generate the claim, and then"
+        }
+      ]
+    },
+    "Results": {
+      "summary": "We ﬁne-tune and evaluate our models on a wide range of knowledgeintensive NLP tasks and set the state of the art on three open domain QA tasks, outperforming parametric seq2seq models and task-speciﬁc retrieve-and-extract architectures. For FEVER [56] fact veriﬁcation, we achieve results within 4.3% of state-of-the-art pipeline models which use strong retrieval supervision.",
+      "method": "extractive",
+      "from_tagged_section": true,
+      "citation": "[Paper 9, Page 1, 2]",
+      "evidence": [
+        {
+          "page": 1,
+          "section": "abstract",
+          "category": "Sentence",
+          "text": "We ﬁne-tune and evaluate our models on a wide range of knowledgeintensive NLP tasks and set the state of the art on three open domain QA tasks, outperforming parametric seq2seq models and task-speciﬁc retrieve-and-extract architectures."
+        },
+        {
+          "page": 2,
+          "section": "introduction",
+          "category": "Sentence",
+          "text": "For FEVER [56] fact veriﬁcation, we achieve results within 4.3% of state-of-the-art pipeline models which use strong retrieval supervision."
+        }
+      ]
+    },
+    "Limitations": {
+      "summary": "In future work, it may be fruitful to investigate if the two components can be jointly pre-trained from scratch, either with a denoising objective similar to BART or some another objective. As FEVER uses a different Wikipedia dump to us, directly tackling this task is not straightforward. We hope to address this in future work.",
+      "method": "extractive",
+      "from_tagged_section": true,
+      "citation": "[Paper 9, Page 9, 18]",
+      "evidence": [
+        {
+          "page": 9,
+          "section": "discussion",
+          "category": "Limitations",
+          "text": "6 Discussion In this work, we presented hybrid generation models with access to parametric and non-parametric memory. We showed that our RAG models obtain state of the art results on open-domain QA. We found that people prefer RAG’s generation over purely parametric BART, ﬁnding RAG more factual and speciﬁc. We conducted an thorough investigation of the learned retrieval component, validating its effectiveness, and we illustrated how the retrieval index can be hot-swapped to update the model without requiring any retraining. In future work, it may be fruitful to investigate if the two components can be jointly pre-trained from scratch, either with a denoising objective similar to BART or som"
+        },
+        {
+          "page": 18,
+          "section": "experiments",
+          "category": "Limitations",
+          "text": "enerate the claim, and then classify using the representation of the ﬁnal hidden state, before ﬁnally marginalizing across documents to obtain the class probabilities. The FEVER task traditionally has two sub-tasks. The ﬁrst is to classify the claim as either \"Supported\", \"Refuted\" or \"Not Enough Info\", which is the task we explore in the main paper. FEVER’s other sub-task involves extracting sentences from Wikipedia as evidence supporting the classiﬁcation prediction. As FEVER uses a different Wikipedia dump to us, directly tackling this task is not straightforward. We hope to address this in future work. F Null Document Probabilities We experimented with adding \"Null document\" mechanism to"
+        }
+      ]
+    }
+  }
+}

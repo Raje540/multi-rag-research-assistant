@@ -1,0 +1,157 @@
+{
+  "paper_id": 6,
+  "title": "Benchmarking Large Language Models in Retrieval-Augmented Generation",
+  "code_version": "18",
+  "analyzed_at": "2026-11-12T12:39:46Z",
+  "model": "llama3.2:3b",
+  "dimensions": {
+    "Novelty": {
+      "summary": "We proposed to evaluate four capabilities for retrievalaugmented generation of LLMs and created the Retrieval-Augmented Generation Benchmark in both English and Chinese. We analyzed the responses of LLMs in RGB and identified their current shortcomings as well as suggested directions for improvement.",
+      "method": "extractive",
+      "from_tagged_section": true,
+      "citation": "[Paper 6, Page 2]",
+      "evidence": [
+        {
+          "page": 2,
+          "section": "introduction",
+          "category": "Limitations",
+          "text": "issues in the existing RAG method. Therefore, it is crucial to exercise caution and carefully design its usage. Generally speaking, the contributions of this paper are1: • We proposed to evaluate four capabilities for retrievalaugmented generation of LLMs and created the Retrieval-Augmented Generation Benchmark in both English and Chinese. To best of our knowledge, it is the first benchmark designed to assess these four capabilities for retrieval-augmented generation of LLMs. • We evaluated the existing LLMs using RGB and found the limitations of them in the four different abilities. • We analyzed the responses of LLMs in RGB and identified their current shortcomings as well as suggested dir"
+        }
+      ]
+    },
+    "Methodology": {
+      "summary": "Retrieval-Augmented Generation Benchmark (RGB), built from latest news articles and external documents obtained from search engines. The benchmark evaluates four capabilities: noise robustness, negative rejection, information integration, and counterfactual robustness.",
+      "method": "llm",
+      "from_tagged_section": false,
+      "citation": "[Paper 6, Page 1, 2, 7]",
+      "evidence": [
+        {
+          "page": 1,
+          "section": "abstract",
+          "category": "Sentence",
+          "text": "In this paper, we systematically investigate the impact of Retrieval-Augmented Generation on large language models."
+        },
+        {
+          "page": 1,
+          "section": "abstract",
+          "category": "Sentence",
+          "text": "We analyze the performance of different large language models in 4 fundamental abilities required for RAG, including noise robustness, negative rejection, information integration, and counterfactual robustness."
+        },
+        {
+          "page": 1,
+          "section": "abstract",
+          "category": "Sentence",
+          "text": "Then we evaluate 6 representative LLMs on RGB to diagnose the challenges of current LLMs when applying RAG."
+        },
+        {
+          "page": 2,
+          "section": "introduction",
+          "category": "Sentence",
+          "text": "To this end, this paper conducts a comprehensive evaluation of RAG for current LLMs."
+        },
+        {
+          "page": 2,
+          "section": "introduction",
+          "category": "Limitations",
+          "text": "Therefore, it is crucial to exercise caution and carefully design its usage. Generally speaking, the contributions of this paper are1: • We proposed to evaluate four capabilities for retrievalaugmented generation of LLMs and created the Retrieval-Augmented Generation Benchmark in both English and Chinese. To best of our knowledge, it is the first benchmark designed to assess these four capabilities for retrieval-augmented generation of LLMs. • We evaluated the existing LLMs using RGB and found the limitations of them in the four different abilities. • We analyzed the responses of LLMs in RGB and identified their current shortcomings as well as suggested directions for improvement."
+        },
+        {
+          "page": 2,
+          "section": "introduction",
+          "category": "Other",
+          "text": "Besides, LLMs frequently fail to reject answering and generate incorrect answers when none of the external documents contain relevant information. Furthermore, LLMs lack the ability to summarize from multiple documents, and therefore if multiple documents are needed to answer a question, LLMs often fail to provide accurate answer. Finally, we found that even when the LLMs contain the required knowledge and are given warnings about potential risks in the retrieved information through instruction, they still tend to trust and prioritize the retrieved information over their own existing knowledge. The experimental results mentioned above highlight the need for further resolution of important is"
+        },
+        {
+          "page": 7,
+          "section": "conclusion",
+          "category": "Limitations",
+          "text": "Conclusion In this paper, we evaluated four abilities of retrievalaugmented generation in LLMs: noise robustness, negative rejection, information integration, and counterfactual robustness. To conduct the evaluation, we built RetrievalAugmented Generation Benchmark (RGB). The instances of RGB are generated from latest news articles and the external documents obtained from search engines. The experimental results suggest that current LLMs have limitations in the 4 abilities. This indicates that there is still a significant amount of work needed to effectively apply RAG to LLMs. To ensure accurate and reliable responses from LLMs, it is crucial to exercise caution and carefully design for RAG."
+        }
+      ]
+    },
+    "Dataset": {
+      "summary": "RGB, English and Chinese. The paper builds a new Retrieval-Augmented Generation Benchmark (RGB) in both English and Chinese.",
+      "method": "llm",
+      "from_tagged_section": true,
+      "citation": "[Paper 6, Page 1, 2, 7]",
+      "evidence": [
+        {
+          "page": 2,
+          "section": "introduction",
+          "category": "Sentence",
+          "text": "Specifically, we create a new Retrieval-Augmented Generation Benchmark, namely RGB, in both English and Chinese."
+        },
+        {
+          "page": 7,
+          "section": "conclusion",
+          "category": "Sentence",
+          "text": "To conduct the evaluation, we built RetrievalAugmented Generation Benchmark (RGB)."
+        },
+        {
+          "page": 1,
+          "section": "abstract",
+          "category": "Sentence",
+          "text": "To this end, we establish Retrieval-Augmented Generation Benchmark (RGB), a new corpus for RAG evaluation in both English and Chinese."
+        },
+        {
+          "page": 2,
+          "section": "introduction",
+          "category": "Sentence",
+          "text": "Then, based on these queries, we use Search API to fetch relevant documents and select most relevant snippets from the content as external retrieved documents."
+        },
+        {
+          "page": 2,
+          "section": "introduction",
+          "category": "Other",
+          "text": "Then, based on these queries, we use Search API to fetch relevant documents and select most relevant snippets from the content as external retrieved documents. Finally, based on different compositions of query and document-set pairs, we expand the corpus and divided it into 4 testbeds to evaluate the following basic abilities of LLMs according to the common challenges in RAG, as shown in In this paper, we define noisy documents as those that are relevant to the question but do not contain any information of the answer. For the instance in Figure 1, the noisy documents related to the question “Who was awarded the 2022 Nobel Prize in Literature” include reports about the 2021 Nobel"
+        },
+        {
+          "page": 7,
+          "section": "experiments",
+          "category": "Results",
+          "text": "The results are shown in Table 7. We present the following metrics: accuracy without any documents, accuracy with counterfactual documents, error detection rates, and error correction rates. We can see that It is hard for LLMs to identify and correct factual errors in the documents. This suggests that the model can be easily misled by documents containing incorrect facts. It is important to note that retrieval-augmented generation is not designed to automatically address factual errors within a given context, as this contradicts the underlying assumption that the model lacks knowledge and relies on retrieved documents for additional information. However, this issue is crucial in practical ap"
+        },
+        {
+          "page": 1,
+          "section": "abstract",
+          "category": "Dataset",
+          "text": "Abstract Retrieval-Augmented Generation (RAG) is a promising approach for mitigating the hallucination of large language models (LLMs). However, existing research lacks rigorous evaluation of the impact of retrieval-augmented generation on different large language models, which make it challenging to identify the potential bottlenecks in the capabilities of RAG for different LLMs. In this paper, we systematically investigate the impact of Retrieval-Augmented Generation on large language models. We analyze the performance of different large language models in 4 fundamental abilities required for RAG, including noise robustness, negative rejection, information integration, and counterfactual r"
+        }
+      ]
+    },
+    "Results": {
+      "summary": "Specifically, when the noise ratio exceeds 80%, the accuracy decreases significantly at a significance level of 0.05. Performance decline becomes significant when the noise ratio is 0.4, but for simple problems, a significant decline occurs only at a noise ratio of 0.8 at a significance level of 0.05.",
+      "method": "extractive",
+      "from_tagged_section": true,
+      "citation": "[Paper 6, Page 5, 6]",
+      "evidence": [
+        {
+          "page": 5,
+          "section": "experiments",
+          "category": "Sentence",
+          "text": "Specifically, when the noise ratio exceeds 80%, the accuracy decreases significantly at a significance level of 0.05."
+        },
+        {
+          "page": 6,
+          "section": "experiments",
+          "category": "Sentence",
+          "text": "Performance decline becomes significant when the noise ratio is 0.4, but for simple problems, a significant decline occurs only at a noise ratio of 0.8 at a significance level of 0.05."
+        }
+      ]
+    },
+    "Limitations": {
+      "summary": "Due to contextual limitations, we provide 5 external documents for each question.",
+      "method": "extractive",
+      "from_tagged_section": true,
+      "citation": "[Paper 6, Page 5]",
+      "evidence": [
+        {
+          "page": 5,
+          "section": "experiments",
+          "category": "Limitations",
+          "text": "Experiments In this section, we evaluate the performance of various LLMs, analyze and discuss the results, summarizing the main challenges that existing LLMs encounter when using external knowledge. Settings Task formats. Due to contextual limitations, we provide 5 external documents for each question. In our experiments on noise robustness, we evaluate scenarios with noise ratios ranging from 0 to 0.8. To comprehensively evaluate the overall capabilities, we have adopted a unified instruction for each language, as shown in Figure 3. The experiments were conducted using an NVIDIA GeForce RTX 3090. Models We conduct evaluation on 6 state-of-the-art large language models which can generate bot"
+        }
+      ]
+    }
+  }
+}

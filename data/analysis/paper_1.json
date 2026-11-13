@@ -1,0 +1,109 @@
+{
+  "paper_id": 1,
+  "title": "Automatic Detection of Fake News",
+  "code_version": "18",
+  "analyzed_at": "2026-11-12T15:03:08Z",
+  "model": "llama3.2:3b",
+  "dimensions": {
+    "Novelty": {
+      "summary": "In this paper, we develop computational resources and models for the task of fake news detection. We present the construction of two novel datasets covering seven different domains. First, we introduce two novel datasets for the task of fake news detection, covering seven different news domains.",
+      "method": "extractive",
+      "from_tagged_section": true,
+      "citation": "[Paper 1, Page 1]",
+      "evidence": [
+        {
+          "page": 1,
+          "section": "introduction",
+          "category": "Dataset",
+          "text": "he Onion” and fact-checking websites such as ”politiFact” and ”Snopes”. However, the use of these sources poses several challenges and potential drawbacks. For instance, using satirical content as a source for fake content can bring underlying confounding factors into the analysis, such as humor and absurdity. On the other hand, fact-checking websites are usually constrained to a particular domain of interest, such as politics, and require human expertise, thus making it difﬁcult to obtain datasets that provide some degree of generalization over several domains. In this paper, we develop computational resources and models for the task of fake news detection. We present the construction of tw"
+        },
+        {
+          "page": 1,
+          "section": "introduction",
+          "category": "Dataset",
+          "text": "paper, we develop computational resources and models for the task of fake news detection. We present the construction of two novel datasets covering seven different domains. One of the datasets is collected using a combination of manual and crowdsourced annotation efforts, while the second is collected directly from the web. Using these datasets, we conduct several exploratory analyses to identify linguistic properties that are predominantly present in fake content, and we build fake news detectors relying on linguistic features that achieve accuracies of up to 78%. To place our results in perspective, we also compare the accuracy of our fake news detection models with an empirical human bas"
+        },
+        {
+          "page": 1,
+          "section": "abstract",
+          "category": "Other",
+          "text": "Abstract The proliferation of misleading information in everyday access media outlets such as social media feeds, news blogs, and online newspapers have made it challenging to identify trustworthy news sources, thus increasing the need for computational tools able to provide insights into the reliability of online content. In this paper, we focus on the automatic identiﬁcation of fake content in online news. Our contribution is twofold. First, we introduce two novel datasets for the task of fake news detection, covering seven different news domains. We describe the collection, annotation, and validation process in detail and present several exploratory analysis on the identiﬁcation of lingui"
+        }
+      ]
+    },
+    "Methodology": {
+      "summary": "In this paper, we develop computational resources and models for the task of fake news detection. First, we introduce two novel datasets for the task of fake news detection, covering seven different news domains.",
+      "method": "extractive",
+      "from_tagged_section": true,
+      "citation": "[Paper 1, Page 1]",
+      "evidence": [
+        {
+          "page": 1,
+          "section": "introduction",
+          "category": "Sentence",
+          "text": "In this paper, we develop computational resources and models for the task of fake news detection."
+        },
+        {
+          "page": 1,
+          "section": "abstract",
+          "category": "Sentence",
+          "text": "First, we introduce two novel datasets for the task of fake news detection, covering seven different news domains."
+        }
+      ]
+    },
+    "Dataset": {
+      "summary": "Throughout the rest of the paper, we refer to this crowdsourced dataset as FakeNewsAMT. We collected a second dataset of fake news from web sources following similar guidelines as in the previous dataset.",
+      "method": "extractive",
+      "from_tagged_section": true,
+      "citation": "[Paper 1, Page 3]",
+      "evidence": [
+        {
+          "page": 3,
+          "section": "fake news datasets",
+          "category": "Dataset",
+          "text": "The ﬁnal set of fake news consists of 31,990 words. Each fake news has on average 132 words and approximately 5 sentences. Table 1 shows a sample fake news, along with its legitimate version, in the technology domain. Throughout the rest of the paper, we refer to this crowdsourced dataset as FakeNewsAMT. 3.2 Building a Web Dataset We collected a second dataset of fake news from web sources following similar guidelines as in the previous dataset. However, this time, we aimed to identify fake content that naturally occurs on the web. We opted for collecting news from public ﬁgures as they are frequently targeted by rumors, hoaxes, and fake reports. We focused mainly on celebrities (actors, sin"
+        },
+        {
+          "page": 3,
+          "section": "fake news datasets",
+          "category": "Sentence",
+          "text": "We collected a second dataset of fake news from web sources following similar guidelines as in the previous dataset."
+        }
+      ]
+    },
+    "Results": {
+      "summary": "Using these datasets, we conduct several exploratory analyses to identify linguistic properties that are predominantly present in fake content, and we build fake news detectors relying on linguistic features that achieve accuracies of up to 78%. Our best performing models achieved accuracies that are comparable to human ability to spot fake content.",
+      "method": "extractive",
+      "from_tagged_section": true,
+      "citation": "[Paper 1, Page 1, 8]",
+      "evidence": [
+        {
+          "page": 1,
+          "section": "introduction",
+          "category": "Sentence",
+          "text": "Using these datasets, we conduct several exploratory analyses to identify linguistic properties that are predominantly present in fake content, and we build fake news detectors relying on linguistic features that achieve accuracies of up to 78%."
+        },
+        {
+          "page": 8,
+          "section": "conclusion",
+          "category": "Sentence",
+          "text": "Our best performing models achieved accuracies that are comparable to human ability to spot fake content."
+        }
+      ]
+    },
+    "Limitations": {
+      "summary": "As outlined in the following, the ground-truth remains challenging since we cannot verify with absolute certainty whether all the content of real news items is in fact true.",
+      "method": "extractive",
+      "from_tagged_section": false,
+      "citation": "[Paper 1, Page 2]",
+      "evidence": [
+        {
+          "page": 2,
+          "section": "fake news datasets",
+          "category": "Dataset",
+          "text": "by (Rubin et al., 2016). Speciﬁcally, the authors suggested that such a corpus should (1) include both fake and real news items, (2) contain text-only news items, (3) have a veriﬁable ground-truth, (4) be homogeneous in length and (5) writing style, (6) contain news from a predeﬁned time frame, (7) be delivered in the same manner and for the same purpose (e.g. humor, breaking news) for fake and real cases, (8) be made publicly available, and (9) should take language and cultural differences into account. In our work, to the extent possible, we aimed to address all of the above guidelines. As outlined in the following, the ground-truth remains challenging since we cannot verify with absolute "
+        }
+      ]
+    }
+  }
+}

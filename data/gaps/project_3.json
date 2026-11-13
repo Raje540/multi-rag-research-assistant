@@ -1,0 +1,64 @@
+{
+  "project_id": 3,
+  "code_version": "3",
+  "detected_at": "2026-11-12T13:32:41Z",
+  "total_papers": 5,
+  "papers_without_gaps": [
+    10,
+    12
+  ],
+  "gaps": [
+    {
+      "paper_id": 11,
+      "paper_title": "Swin Transformer: Hierarchical Vision Transformer using Shifted Windows",
+      "type": "Open issue",
+      "title": "Kernel optimization scope limitations",
+      "evidence_snippet": "A thorough kernel optimization is beyond the scope of this paper.",
+      "page": 7,
+      "section": "methodology",
+      "citation": "[Paper 11, Page 7]",
+      "status": "DETECTED",
+      "gap_id": "GAP-1",
+      "description": "Open issue stated by the authors of \"Swin Transformer: Hierarchical Vision Transformer using Shifted Windows\" on page 7."
+    },
+    {
+      "paper_id": 13,
+      "paper_title": "Deep Residual Learning for Image Recognition",
+      "type": "Future work",
+      "title": "Combining with stronger regularization may improve future study results",
+      "evidence_snippet": "But combining with stronger regularization may improve results, which we will study in the future.",
+      "page": 8,
+      "section": "experiments",
+      "citation": "[Paper 13, Page 8]",
+      "status": "DETECTED",
+      "gap_id": "GAP-2",
+      "description": "Future work stated by the authors of \"Deep Residual Learning for Image Recognition\" on page 8."
+    },
+    {
+      "paper_id": 14,
+      "paper_title": "A ConvNet for the 2020s",
+      "type": "Future work",
+      "title": "Employing ResNeXt Design",
+      "evidence_snippet": "We will now employ the ResNeXt design.",
+      "page": 4,
+      "section": "modernizing a convnet: a roadmap",
+      "citation": "[Paper 14, Page 4]",
+      "status": "DETECTED",
+      "gap_id": "GAP-3",
+      "description": "Future work stated by the authors of \"A ConvNet for the 2020s\" on page 4."
+    },
+    {
+      "paper_id": 14,
+      "paper_title": "A ConvNet for the 2020s",
+      "type": "Open issue",
+      "title": "Scaling behavior of vision transformers",
+      "evidence_snippet": "These ﬁndings are encouraging but not yet completely convincing — our exploration thus far has been limited to a small scale, but vision Transformers’ scaling behavior is what truly distinguishes them.",
+      "page": 6,
+      "section": "modernizing a convnet: a roadmap",
+      "citation": "[Paper 14, Page 6]",
+      "status": "DETECTED",
+      "gap_id": "GAP-4",
+      "description": "Open issue stated by the authors of \"A ConvNet for the 2020s\" on page 6."
+    }
+  ]
+}
