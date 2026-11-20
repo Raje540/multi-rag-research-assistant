@@ -1,4 +1,5 @@
 import html
+import os
 import streamlit as st
 import requests
 
@@ -13,8 +14,21 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# API Endpoint Base URL
-API_URL = "http://localhost:8000/api"
+# API Endpoint Base URL.
+# Local run: nothing to set, it uses http://localhost:8000/api.
+# Deployed run: set API_URL (in Streamlit "Secrets" or as an environment variable),
+# for example  API_URL = "https://your-backend-address/api"
+def _get_api_url() -> str:
+    url = None
+    try:
+        url = st.secrets.get("API_URL")
+    except Exception:
+        url = None
+    url = url or os.environ.get("API_URL") or "http://localhost:8000/api"
+    return str(url).rstrip("/")
+
+
+API_URL = _get_api_url()
 
 # --------------------------------------------------
 # CUSTOM STYLING
