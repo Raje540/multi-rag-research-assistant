@@ -1,22 +1,6 @@
-<<<<<<< HEAD
-import sys
-from pathlib import Path
-
-# --------------------------------------------------
-# PROJECT ROOT PATH
-# --------------------------------------------------
-
-PROJECT_ROOT = Path(__file__).resolve().parent.parent
-
-if str(PROJECT_ROOT) not in sys.path:
-    sys.path.insert(0, str(PROJECT_ROOT))
-
-=======
 import html
->>>>>>> 017eb04 (Updated Multi-RAG Research Assistant)
 import streamlit as st
 import requests
-
 
 # --------------------------------------------------
 # PAGE CONFIGURATION
@@ -29,11 +13,8 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-<<<<<<< HEAD
-=======
 # API Endpoint Base URL
 API_URL = "http://localhost:8000/api"
->>>>>>> 017eb04 (Updated Multi-RAG Research Assistant)
 
 # --------------------------------------------------
 # CUSTOM STYLING
@@ -41,25 +22,10 @@ API_URL = "http://localhost:8000/api"
 
 _CSS = """
 <style>
-<<<<<<< HEAD
-
-    /* ---------------------------------------------
-       MAIN APPLICATION
-       --------------------------------------------- */
-
-    .stApp {
-        background-color: #f7f8fa;
-    }
-=======
     /* Main background (only forced in light mode, see theme detection below) */
     __APP_BG_RULE__
->>>>>>> 017eb04 (Updated Multi-RAG Research Assistant)
 
-
-    /* ---------------------------------------------
-       SIDEBAR
-       --------------------------------------------- */
-
+    /* Sidebar */
     section[data-testid="stSidebar"] {
         background-color: #111827;
     }
@@ -68,11 +34,7 @@ _CSS = """
         color: #f9fafb;
     }
 
-
-    /* ---------------------------------------------
-       MAIN TITLE
-       --------------------------------------------- */
-
+    /* Main title */
     .main-title {
         font-size: 32px;
         font-weight: 700;
@@ -86,25 +48,13 @@ _CSS = """
         margin-bottom: 30px;
     }
 
-
-    /* ---------------------------------------------
-       METRIC CARDS
-       --------------------------------------------- */
-
+    /* Cards */
     .metric-card {
-<<<<<<< HEAD
-        background-color: #ffffff;
-        padding: 22px;
-        border-radius: 12px;
-        border: 1px solid #e5e7eb;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-=======
         background-color: __CARD_BG__;
         padding: 22px;
         border-radius: 12px;
         border: 1px solid __CARD_BORDER__;
         box-shadow: 0 2px 8px rgba(0,0,0,0.04);
->>>>>>> 017eb04 (Updated Multi-RAG Research Assistant)
     }
 
     .metric-title {
@@ -119,101 +69,13 @@ _CSS = """
         margin-top: 5px;
     }
 
-<<<<<<< HEAD
-
-    /* ---------------------------------------------
-       UPLOAD CARD
-       --------------------------------------------- */
-
-    .upload-card {
-        background-color: #ffffff;
-        padding: 28px;
-        border-radius: 14px;
-        border: 1px solid #e5e7eb;
-        margin-top: 20px;
-    }
-
-
-    /* ---------------------------------------------
-       SECTION HEADINGS
-       --------------------------------------------- */
-
-=======
     /* Section headings */
->>>>>>> 017eb04 (Updated Multi-RAG Research Assistant)
     .section-title {
         font-size: 21px;
         font-weight: 650;
         color: __TITLE__;
         margin-top: 25px;
     }
-<<<<<<< HEAD
-
-
-    /* ---------------------------------------------
-       EVIDENCE EXPANDERS
-       --------------------------------------------- */
-
-    div[data-testid="stExpander"] {
-        background-color: #ffffff !important;
-        border: 1px solid #d1d5db !important;
-        border-radius: 10px !important;
-        margin-bottom: 12px !important;
-        overflow: hidden !important;
-    }
-
-
-    /* Evidence expander header */
-
-    div[data-testid="stExpander"] details {
-        background-color: #ffffff !important;
-    }
-
-    div[data-testid="stExpander"] details summary {
-        background-color: #ffffff !important;
-        color: #111827 !important;
-        padding: 14px 16px !important;
-    }
-
-
-    /* Evidence header text */
-
-    div[data-testid="stExpander"] details summary p {
-        color: #111827 !important;
-        font-weight: 600 !important;
-        font-size: 15px !important;
-    }
-
-
-    /* Evidence header hover */
-
-    div[data-testid="stExpander"] details summary:hover {
-        background-color: #f3f4f6 !important;
-    }
-
-
-    /* Evidence body */
-
-    div[data-testid="stExpander"] div[data-testid="stMarkdownContainer"] {
-        background-color: #ffffff !important;
-    }
-
-    div[data-testid="stExpander"] div[data-testid="stMarkdownContainer"] p {
-        color: #111827 !important;
-        font-size: 15px !important;
-        line-height: 1.7 !important;
-    }
-
-
-    /* Evidence metadata */
-
-    div[data-testid="stExpander"] div[data-testid="stCaptionContainer"] {
-        color: #6b7280 !important;
-        background-color: #ffffff !important;
-    }
-
-=======
->>>>>>> 017eb04 (Updated Multi-RAG Research Assistant)
 </style>
 """
 
@@ -258,7 +120,6 @@ for _key, _value in _palette.items():
 
 st.markdown(_CSS, unsafe_allow_html=True)
 
-
 # --------------------------------------------------
 # SIDEBAR
 # --------------------------------------------------
@@ -287,7 +148,6 @@ with st.sidebar:
     st.divider()
     st.caption("Multi-RAG Research Assistant")
     st.caption("Evidence-Traceable Research Gap Validation")
-
 
 # --------------------------------------------------
 # HEADER
@@ -356,7 +216,6 @@ if "detected_gaps" in st.session_state and st.session_state["detected_gaps"]:
     gaps_count = len(st.session_state["detected_gaps"])
     validated_gaps_count = len([g for g in st.session_state["detected_gaps"] if g.get("status") in ("CORROBORATED", "STANDS")])
 
-
 # --------------------------------------------------
 # METRIC CARDS
 # --------------------------------------------------
@@ -364,122 +223,53 @@ if "detected_gaps" in st.session_state and st.session_state["detected_gaps"]:
 col1, col2, col3, col4 = st.columns(4)
 
 with col1:
-<<<<<<< HEAD
-
-    st.markdown("""
-=======
     st.markdown(f"""
->>>>>>> 017eb04 (Updated Multi-RAG Research Assistant)
     <div class="metric-card">
         <div class="metric-title">Research Papers</div>
         <div class="metric-value">{papers_count}</div>
     </div>
     """, unsafe_allow_html=True)
 
-
 with col2:
-<<<<<<< HEAD
-
-    st.markdown("""
-=======
     st.markdown(f"""
->>>>>>> 017eb04 (Updated Multi-RAG Research Assistant)
     <div class="metric-card">
         <div class="metric-title">Evidence Chunks</div>
         <div class="metric-value">{chunks_count}</div>
     </div>
     """, unsafe_allow_html=True)
 
-
 with col3:
-<<<<<<< HEAD
-
-    st.markdown("""
-=======
     st.markdown(f"""
->>>>>>> 017eb04 (Updated Multi-RAG Research Assistant)
     <div class="metric-card">
         <div class="metric-title">Research Gaps</div>
         <div class="metric-value">{gaps_count}</div>
     </div>
     """, unsafe_allow_html=True)
 
-
 with col4:
-<<<<<<< HEAD
-
-    st.markdown("""
-=======
     st.markdown(f"""
->>>>>>> 017eb04 (Updated Multi-RAG Research Assistant)
     <div class="metric-card">
         <div class="metric-title">Validated Gaps</div>
         <div class="metric-value">{validated_gaps_count}</div>
     </div>
     """, unsafe_allow_html=True)
 
-
 # --------------------------------------------------
-# OVERVIEW
+# PAGE CONTENT
 # --------------------------------------------------
 
 if page == "Overview":
     st.markdown('<div class="section-title">Research Workspace</div>', unsafe_allow_html=True)
     st.info("Create a research project and upload multiple papers to begin evidence-based analysis.")
 
-# --------------------------------------------------
-# RESEARCH PROJECTS
-# --------------------------------------------------
-
 elif page == "Research Projects":
     st.markdown('<div class="main-title">Research Projects</div>', unsafe_allow_html=True)
     st.markdown('<div class="subtitle">Create and manage your research analysis projects.</div>', unsafe_allow_html=True)
     st.markdown('<div class="section-title">Create New Research Project</div>', unsafe_allow_html=True)
 
-<<<<<<< HEAD
-    st.markdown(
-        '<div class="main-title">Research Projects</div>',
-        unsafe_allow_html=True
-    )
-
-    st.markdown(
-        '<div class="subtitle">'
-        'Create and manage your research analysis projects.'
-        '</div>',
-        unsafe_allow_html=True
-    )
-
-    st.markdown(
-        '<div class="section-title">Create New Research Project</div>',
-        unsafe_allow_html=True
-    )
-
-    project_name = st.text_input(
-        "Project Name",
-        placeholder="e.g. Multilingual Fake News Detection"
-    )
-
-    research_domain = st.text_input(
-        "Research Domain",
-        placeholder="e.g. Natural Language Processing"
-    )
-
-    project_description = st.text_area(
-        "Project Description",
-        placeholder="Describe the research problem or objective...",
-        height=120
-    )
-
-    if st.button(
-        "Create Research Project",
-        type="primary",
-        use_container_width=True
-    ):
-=======
     project_name = st.text_input("Project Name", placeholder="e.g. Multilingual Fake News Detection")
     research_domain = st.text_input("Research Domain", placeholder="e.g. Natural Language Processing")
     project_description = st.text_area("Project Description", placeholder="Describe the research problem...", height=120)
->>>>>>> 017eb04 (Updated Multi-RAG Research Assistant)
 
     if st.button("Create Research Project", type="primary", use_container_width=True):
         if not project_name or not research_domain:
@@ -499,20 +289,6 @@ elif page == "Research Projects":
             except Exception as e:
                 st.error(f"Could not connect to backend: {e}")
 
-<<<<<<< HEAD
-            st.success(
-                f"Research project '{project_name}' is ready to be created."
-            )
-
-            st.info(
-                "Database storage will be connected in the next stage."
-            )
-
-
-# --------------------------------------------------
-# RESEARCH PAPERS
-# --------------------------------------------------
-=======
     st.divider()
     st.markdown('<div class="section-title">Existing Projects</div>', unsafe_allow_html=True)
 
@@ -535,7 +311,6 @@ elif page == "Research Projects":
                         st.divider()
     except Exception as e:
         st.error(f"Could not connect to backend: {e}")
->>>>>>> 017eb04 (Updated Multi-RAG Research Assistant)
 
 elif page == "Research Papers":
     st.markdown('<div class="main-title">Research Paper Collection</div>', unsafe_allow_html=True)
@@ -579,21 +354,6 @@ elif page == "Research Papers":
                 st.session_state["selected_project_name"] = selected_project_name
                 st.rerun()
 
-<<<<<<< HEAD
-            with col1:
-
-                st.write(
-                    f"📄 **{index}. {file.name}**"
-                )
-
-            with col2:
-
-                size_kb = file.size / 1024
-
-                st.caption(
-                    f"{size_kb:.1f} KB"
-                )
-=======
             st.divider()
             uploaded_files = st.file_uploader("Upload Research Papers (PDF)", type=["pdf"], accept_multiple_files=True)
 
@@ -627,7 +387,6 @@ elif page == "Research Papers":
                                         st.error(f"❌ Extraction failed: {ext_res.text}")
                             else:
                                 st.error(f"❌ Failed to upload {file.name}")
->>>>>>> 017eb04 (Updated Multi-RAG Research Assistant)
 
                     if results_log:
                         st.session_state["latest_extraction"] = results_log
@@ -642,17 +401,6 @@ elif page == "Research Papers":
                         with st.expander(f"View Sample Evidence Chunk from {item['filename']}"):
                             st.info(item["sample_chunk"])
 
-<<<<<<< HEAD
-            st.info(
-                "Paper processing will be connected to "
-                "the FastAPI backend next."
-            )
-
-
-# --------------------------------------------------
-# RESEARCH CHAT
-# --------------------------------------------------
-=======
             # ---- Papers already in this project, with a way to delete one (for example a duplicate upload) ----
             st.divider()
             st.markdown("### 🗂️ Papers in this project")
@@ -685,7 +433,6 @@ elif page == "Research Papers":
                             st.error(f"Could not connect to backend: {e}")
         else:
             st.info("Please select a valid project from the dropdown above to display the PDF upload zone.")
->>>>>>> 017eb04 (Updated Multi-RAG Research Assistant)
 
 elif page == "Research Chat":
     st.markdown('<div class="main-title">Research Chat & Evidence Q&A</div>', unsafe_allow_html=True)
@@ -701,112 +448,6 @@ elif page == "Research Chat":
     except Exception:
         projects = []
 
-<<<<<<< HEAD
-    st.markdown(
-        '<div class="subtitle">'
-        'Ask questions across the research paper collection.'
-        '</div>',
-        unsafe_allow_html=True
-    )
-
-    query = st.text_input(
-        "Research Question",
-        placeholder="e.g. What methodology does this paper use?"
-    )
-
-    top_k = st.slider(
-        "Number of evidence chunks",
-        min_value=1,
-        max_value=10,
-        value=5
-    )
-
-    if st.button(
-        "Search Research Evidence",
-        type="primary",
-        use_container_width=True
-    ):
-
-        if not query.strip():
-
-            st.warning(
-                "Please enter a research question."
-            )
-
-        else:
-
-            try:
-
-                from backend.services.retrieval.retrieval_service import (
-                    retrieve_chunks
-                )
-
-                from backend.services.evidence.evidence_engine import (
-                    build_evidence_summary
-                )
-
-                with st.spinner(
-                    "Searching research evidence..."
-                ):
-
-                    chunks = retrieve_chunks(
-                        query,
-                        top_k=top_k
-                    )
-
-                    evidence = build_evidence_summary(
-                        chunks
-                    )
-
-                st.success(
-                    f"Retrieved {len(chunks)} evidence chunks "
-                    f"from {evidence['total_papers']} paper(s)."
-                )
-
-                st.markdown("### Evidence")
-
-                if not chunks:
-
-                    st.warning(
-                        "No relevant evidence found."
-                    )
-
-                else:
-
-                    for index, chunk in enumerate(
-                        chunks,
-                        start=1
-                    ):
-
-                        with st.expander(
-                            f"Evidence {index} — "
-                            f"Paper {chunk['paper_id']} | "
-                            f"Page {chunk['page_number']} | "
-                            f"{chunk['category']}"
-                        ):
-
-                            st.write(
-                                chunk["text"]
-                            )
-
-                            st.caption(
-                                f"Paper ID: {chunk['paper_id']} | "
-                                f"Page: {chunk['page_number']} | "
-                                f"Category: {chunk['category']} | "
-                                f"Distance: {chunk['distance']:.4f}"
-                            )
-
-            except Exception as e:
-
-                st.error(
-                    f"Error while retrieving evidence: {e}"
-                )
-
-
-# --------------------------------------------------
-# EVIDENCE ANALYSIS
-# --------------------------------------------------
-=======
     if not projects:
         st.warning("⚠️ No projects found. Please create a project and upload research papers first.")
     else:
@@ -887,7 +528,6 @@ elif page == "Research Chat":
                             st.error(f"Could not connect to backend: {e}")
         else:
             st.info("Please select a research project from the dropdown above to start asking questions.")
->>>>>>> 017eb04 (Updated Multi-RAG Research Assistant)
 
 elif page == "Evidence Analysis":
     st.markdown('<div class="main-title">Evidence Analysis & Cross-Paper Comparison</div>', unsafe_allow_html=True)
@@ -1020,10 +660,6 @@ elif page == "Evidence Analysis":
                                 st.caption(f"Page {ev['page']} · section: {ev['section']}")
                                 st.info(ev["text"])
 
-# --------------------------------------------------
-# GAP DETECTION
-# --------------------------------------------------
-
 elif page == "Gap Detection":
     st.markdown('<div class="main-title">Research Gap Detection Agent</div>', unsafe_allow_html=True)
     st.markdown('<div class="subtitle">Finds the limitations, open issues and future work that the authors themselves state, each with its page number.</div>', unsafe_allow_html=True)
@@ -1067,10 +703,6 @@ elif page == "Gap Detection":
                 st.caption(f"Paper #{pid}: the authors do not state any limitation or future work in the text, so no gap was taken from it.")
         elif st.session_state.get("gaps_project_id") == active_proj_id:
             st.info("No gaps were found in the text of these papers.")
-
-# --------------------------------------------------
-# GAP VALIDATION
-# --------------------------------------------------
 
 elif page == "Gap Validation":
     st.markdown('<div class="main-title">Evidence-Traceable Gap Validation</div>', unsafe_allow_html=True)
@@ -1128,10 +760,6 @@ elif page == "Gap Validation":
                 if gap["status"] == "STANDS":
                     st.caption("This means none of the other papers says it is solved. It does not prove that nobody solved it.")
 
-# --------------------------------------------------
-# FINAL REPORT
-# --------------------------------------------------
-
 elif page == "Final Report":
     st.markdown('<div class="main-title">Final Research Report</div>', unsafe_allow_html=True)
     st.markdown('<div class="subtitle">Builds one report from your saved results: the paper comparison, the research gaps and their validation. Every statement shows its paper and page.</div>', unsafe_allow_html=True)
@@ -1151,12 +779,6 @@ elif page == "Final Report":
                 except Exception as e:
                     st.error(f"Could not connect to backend: {e}")
 
-<<<<<<< HEAD
-    st.info(
-        "The final evidence-traceable research report "
-        "will be generated here."
-    )
-=======
         report = st.session_state.get("final_report")
         if report and report.get("project_id") == active_proj_id:
             info = report.get("info", {})
@@ -1179,4 +801,3 @@ elif page == "Final Report":
             st.markdown(report["markdown"])
         else:
             st.info("Click 'Generate Research Report' to build the report from your saved results.")
->>>>>>> 017eb04 (Updated Multi-RAG Research Assistant)
