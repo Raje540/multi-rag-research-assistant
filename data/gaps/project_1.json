@@ -1,0 +1,100 @@
+{
+  "project_id": 1,
+  "code_version": "3",
+  "detected_at": "2026-11-12T15:13:25Z",
+  "total_papers": 3,
+  "papers_without_gaps": [],
+  "gaps": [
+    {
+      "paper_id": 1,
+      "paper_title": "Automatic Detection of Fake News",
+      "type": "Limitation",
+      "title": "Challenging Ground Truth Verification in Real News Items",
+      "evidence_snippet": "As outlined in the following, the ground-truth remains challenging since we cannot verify with absolute certainty whether all the content of real news items is in fact true.",
+      "page": 2,
+      "section": "fake news datasets",
+      "citation": "[Paper 1, Page 2]",
+      "status": "DETECTED",
+      "gap_id": "GAP-1",
+      "description": "Limitation stated by the authors of \"Automatic Detection of Fake News\" on page 2."
+    },
+    {
+      "paper_id": 2,
+      "paper_title": "FakeNewsNet: A Data Repository with News Content, Social Context and Spatiotemporal Information for Studying Fake News on Social Media",
+      "type": "Future work",
+      "title": "Extending FakeNewsNet to other reliable news sources",
+      "evidence_snippet": "First, we will extend the FakeNewsNet repository to other reliable news sources such as other fact-checking websites or curated data collections.",
+      "page": 10,
+      "section": "conclusion",
+      "citation": "[Paper 2, Page 10]",
+      "status": "DETECTED",
+      "gap_id": "GAP-2",
+      "description": "Future work stated by the authors of \"FakeNewsNet: A Data Repository with News Content, Social Context and Spatiotemporal Information for Studying Fake News on Social Media\" on page 10."
+    },
+    {
+      "paper_id": 2,
+      "paper_title": "FakeNewsNet: A Data Repository with News Content, Social Context and Spatiotemporal Information for Studying Fake News on Social Media",
+      "type": "Future work",
+      "title": "Improving selection strategy for web search results collection",
+      "evidence_snippet": "Second, we will improve the selection strategy used for web search results to reduce noise in the data collection process.",
+      "page": 10,
+      "section": "conclusion",
+      "citation": "[Paper 2, Page 10]",
+      "status": "DETECTED",
+      "gap_id": "GAP-3",
+      "description": "Future work stated by the authors of \"FakeNewsNet: A Data Repository with News Content, Social Context and Spatiotemporal Information for Studying Fake News on Social Media\" on page 10."
+    },
+    {
+      "paper_id": 2,
+      "paper_title": "FakeNewsNet: A Data Repository with News Content, Social Context and Spatiotemporal Information for Studying Fake News on Social Media",
+      "type": "Future work",
+      "title": "Integrating FakeNewsNet with FakeNewsTracker for Fake News Study",
+      "evidence_snippet": "We will also integrate FakeNewsNet repository with front-end software such as FakeNewsTracker (Shu, Mahudeswaran, and Liu 2018), and build an end-to-end system for fake news study.",
+      "page": 10,
+      "section": "conclusion",
+      "citation": "[Paper 2, Page 10]",
+      "status": "DETECTED",
+      "gap_id": "GAP-4",
+      "description": "Future work stated by the authors of \"FakeNewsNet: A Data Repository with News Content, Social Context and Spatiotemporal Information for Studying Fake News on Social Media\" on page 10."
+    },
+    {
+      "paper_id": 3,
+      "paper_title": "Fake News Detection on Social Media: A Data Mining Perspective",
+      "type": "Limitation",
+      "title": "There is no existing benchmark dataset that includes resources to extract all…",
+      "evidence_snippet": "From a dataset perspective, we demonstrated that there is no existing benchmark dataset that includes resources to extract all relevant features.",
+      "page": 10,
+      "section": "open issuesandfutureresearch",
+      "citation": "[Paper 3, Page 10]",
+      "status": "DETECTED",
+      "gap_id": "GAP-5",
+      "description": "Limitation stated by the authors of \"Fake News Detection on Social Media: A Data Mining Perspective\" on page 10."
+    },
+    {
+      "paper_id": 3,
+      "paper_title": "Fake News Detection on Social Media: A Data Mining Perspective",
+      "type": "Future work",
+      "title": "Creating a comprehensive large-scale fake news benchmark dataset",
+      "evidence_snippet": "A promising direction is to create a comprehensive and large-scale fake news benchmark dataset, which can be used by researchers to facilitate further research in this area.",
+      "page": 10,
+      "section": "open issuesandfutureresearch",
+      "citation": "[Paper 3, Page 10]",
+      "status": "DETECTED",
+      "gap_id": "GAP-6",
+      "description": "Future work stated by the authors of \"Fake News Detection on Social Media: A Data Mining Perspective\" on page 10."
+    },
+    {
+      "paper_id": 3,
+      "paper_title": "Fake News Detection on Social Media: A Data Mining Perspective",
+      "type": "Limitation",
+      "title": "Linguistic-based features for fake news have not been fully understood",
+      "evidence_snippet": "Note that linguistic-based features have been widely studied for general NLP tasks, such as text classiﬁcation and clustering, and speciﬁc applications such as author identiﬁcation [32] and deception detection [22], but the underlying characteristics of fake news have not been fully understood.",
+      "page": 10,
+      "section": "open issuesandfutureresearch",
+      "citation": "[Paper 3, Page 10]",
+      "status": "DETECTED",
+      "gap_id": "GAP-7",
+      "description": "Limitation stated by the authors of \"Fake News Detection on Social Media: A Data Mining Perspective\" on page 10."
+    }
+  ]
+}

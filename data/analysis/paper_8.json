@@ -1,0 +1,157 @@
+{
+  "paper_id": 8,
+  "title": "Dense Passage Retrieval for Open-Domain Question Answering",
+  "code_version": "18",
+  "analyzed_at": "2026-11-12T12:42:03Z",
+  "model": "llama3.2:3b",
+  "dimensions": {
+    "Novelty": {
+      "summary": "In this paper, we address the question: can we train a better dense embedding model using only pairs of questions and passages (or answers), without additional pretraining?",
+      "method": "extractive",
+      "from_tagged_section": true,
+      "citation": "[Paper 8, Page 2]",
+      "evidence": [
+        {
+          "page": 2,
+          "section": "introduction",
+          "category": "Methodology",
+          "text": "QA datasets, it also suffers from two weaknesses. First, ICT pretraining is computationally intensive and it is not completely clear that regular sentences are good surrogates of questions in the objective function. Second, because the context encoder is not ﬁne-tuned using pairs of questions and answers, the corresponding representations could be suboptimal. In this paper, we address the question: can we train a better dense embedding model using only pairs of questions and passages (or answers), without additional pretraining? By leveraging the now standard BERT pretrained model (Devlin et al., 2019) and a dual-encoder architecture (Bromley et al., 1994), we focus on developing the right t"
+        }
+      ]
+    },
+    "Methodology": {
+      "summary": "Dualencoder framework, BERT pretrained model.",
+      "method": "llm",
+      "from_tagged_section": true,
+      "citation": "[Paper 8, Page 1, 2, 3, 8]",
+      "evidence": [
+        {
+          "page": 1,
+          "section": "abstract",
+          "category": "Sentence",
+          "text": "In this work, we show that retrieval can be practically implemented using dense representations alone, where embeddings are learned from a small number of questions and passages by a simple dualencoder framework."
+        },
+        {
+          "page": 2,
+          "section": "introduction",
+          "category": "Sentence",
+          "text": "By leveraging the now standard BERT pretrained model (Devlin et al., 2019) and a dual-encoder architecture (Bromley et al., 1994), we focus on developing the right training scheme using a relatively small number of question and passage pairs."
+        },
+        {
+          "page": 8,
+          "section": "methodology",
+          "category": "Sentence",
+          "text": "For WQ and TREC in the Multi setting, we ﬁne-tune the reader trained on NQ."
+        },
+        {
+          "page": 8,
+          "section": "methodology",
+          "category": "Methodology",
+          "text": "It is interesting to contrast our results to those of ORQA (Lee et al., 2019) and also the concurrently developed approach, REALM (Guu et al., 2020). While both methods include additional pretraining tasks and employ an expensive end-to-end training regime, DPR manages to outperform them on both NQ and TriviaQA, simply by focusing on learning a strong passage retrieval model using pairs of questions and answers. The additional pretraining tasks are likely more useful only when the target training sets are small. Although the results of DPR on WQ and TREC in the single-dataset setting are less competitive, adding more question–answer pairs helps boost the performance, achieving the new state "
+        },
+        {
+          "page": 3,
+          "section": "dense passage retriever (dpr)",
+          "category": "Methodology",
+          "text": "At run-time, DPR applies a different encoder EQ(·) that maps the input question to a d-dimensional vector, and retrieves k passages of which vectors are the closest to the question vector. We deﬁne the similarity between the question and the passage using the dot product of their vectors: sim(q, p) = EQ(q)⊺EP (p). (1) Although more expressive model forms for measuring the similarity between a question and a passage do exist, such as networks consisting of multiple layers of cross attentions, the similarity function needs to be decomposable so that the representations of the collection of passages can be precomputed. Most decomposable similarity functions are some transformations of Euclidean"
+        },
+        {
+          "page": 8,
+          "section": "methodology",
+          "category": "Methodology",
+          "text": "REALMWiki and REALMNews are the same model but pretrained on Wikipedia and CC-News, respectively. Single and Multi denote that our Dense Passage Retriever (DPR) is trained using individual or combined training datasets (all except SQuAD). For WQ and TREC in the Multi setting, we ﬁne-tune the"
+        }
+      ]
+    },
+    "Dataset": {
+      "summary": "Natural Questions (NQ) (Kwiatkowski et al., 2019) - mined from real Google search queries, answers identified by annotators in Wikipedia articles. - TriviaQA (Joshi et al., 2017) - originally scraped from the Web. - WebQuestions (WQ) (Berant et al., 2013) - questions selected using Google Suggest API, answers entities in Freebase. - CuratedTREC (TREC) (Baudiˇs and ˇSediv`y, 2015",
+      "method": "llm",
+      "from_tagged_section": true,
+      "citation": "[Paper 8, Page 4, 5, 7]",
+      "evidence": [
+        {
+          "page": 4,
+          "section": "dataset",
+          "category": "Sentence",
+          "text": "Selection of positive passages Because only pairs of questions and answers are provided in TREC, WebQuestions and TriviaQA6, we use the highest-ranked passage from BM25 that contains the answer as the positive passage."
+        },
+        {
+          "page": 4,
+          "section": "experiments",
+          "category": "Sentence",
+          "text": "We ﬁrst apply the pre-processing code released in DrQA (Chen et al., 2017) to extract the clean, text-portion of articles from the Wikipedia dump."
+        },
+        {
+          "page": 5,
+          "section": "experiments",
+          "category": "Sentence",
+          "text": "To this end, we train a multidataset encoder by combining training data from all datasets excluding SQuAD.8 In addition to DPR, we also present the results of BM25, the traditional retrieval method9 and BM25+DPR, using a linear combination of their scores as the new ranking function."
+        },
+        {
+          "page": 7,
+          "section": "experiments",
+          "category": "Sentence",
+          "text": "For experiments on small datasets under the Multi setting, in which using other datasets is allowed, we ﬁne-tune the reader trained on Natural Questions to the target dataset."
+        },
+        {
+          "page": 4,
+          "section": "dataset",
+          "category": "Dataset",
+          "text": "Dataset Train Dev Test Natural Questions 79,168 58,880 8,757 3,610 TriviaQA 78,785 60,413 8,837 11,313 WebQuestions 3,417 2,474 361 2,032 CuratedTREC 1,353 1,125 133 694 SQuAD 78,713 70,096 8,886 10,570 The two columns of Train denote the original training examples in the dataset and the actual questions used for training DPR after ﬁltering. See text for more details. as well as various Web sources and is intended for open-domain QA from unstructured corpora. SQuAD v1.1 (Rajpurkar et al., 2016) is a popular benchmark dataset for reading comprehension. Annotators were presented with a Wikipedia paragraph, and asked to write questions that could be answered from the given text. Although SQuAD "
+        },
+        {
+          "page": 4,
+          "section": "experiments",
+          "category": "Dataset",
+          "text": "Below we brieﬂy describe each dataset and refer readers to their paper for the details of data preparation. Natural Questions (NQ) (Kwiatkowski et al., 2019) was designed for end-to-end question answering. The questions were mined from real Google search queries and the answers were spans in Wikipedia articles identiﬁed by annotators. TriviaQA (Joshi et al., 2017) contains a set of trivia questions with answers that were originally scraped from the Web. WebQuestions (WQ) (Berant et al., 2013) consists of questions selected using Google Suggest API, where the answers are entities in Freebase. CuratedTREC (TREC) (Baudiˇs and ˇSediv`y, 2015) sources questions from TREC QA tracks 5However, Wang "
+        },
+        {
+          "page": 7,
+          "section": "experiments",
+          "category": "Dataset",
+          "text": "We use the batch size of 16 for large (NQ, TriviaQA, SQuAD) and 4 for small (TREC, WQ) datasets, and tune k on the development set. For experiments on small datasets under the Multi setting, in which using other datasets is allowed, we ﬁne-tune the reader trained on Natural Questions to the target dataset. All experiments were done on eight 32GB GPUs."
+        }
+      ]
+    },
+    "Results": {
+      "summary": "When evaluated on a wide range of open-domain QA datasets, our dense retriever outperforms a strong Lucene- BM25 system greatly by 9%-19% absolute in terms of top-20 passage retrieval accuracy, and helps our end-to-end QA system establish new state-of-the-art on multiple open-domain QA benchmarks.1",
+      "method": "extractive",
+      "from_tagged_section": true,
+      "citation": "[Paper 8, Page 1]",
+      "evidence": [
+        {
+          "page": 1,
+          "section": "abstract",
+          "category": "Sentence",
+          "text": "When evaluated on a wide range of open-domain QA datasets, our dense retriever outperforms a strong Lucene- BM25 system greatly by 9%-19% absolute in terms of top-20 passage retrieval accuracy, and helps our end-to-end QA system establish new state-of-the-art on multiple open-domain QA benchmarks.1"
+        }
+      ]
+    },
+    "Limitations": {
+      "summary": "Not stated",
+      "method": "extractive",
+      "from_tagged_section": false,
+      "citation": "",
+      "evidence": [
+        {
+          "page": 1,
+          "section": "introduction",
+          "category": "Results",
+          "text": "n needs a large number of labeled pairs of question and contexts. Dense retrieval methods have thus never be shown to outperform TF-IDF/BM25 for opendomain QA before ORQA (Lee et al., 2019), which proposes a sophisticated inverse cloze task (ICT) objective, predicting the blocks that contain the masked sentence, for additional pretraining. The question encoder and the reader model are then ﬁnetuned using pairs of questions and answers jointly. Although ORQA successfully demonstrates that dense retrieval can outperform BM25, setting new state-of-the-art results on multiple open-domain arXiv:2004.04906v3 [cs.CL] 30 Sep 2020"
+        },
+        {
+          "page": 1,
+          "section": "abstract",
+          "category": "Results",
+          "text": "Abstract Open-domain question answering relies on ef- ﬁcient passage retrieval to select candidate contexts, where traditional sparse vector space models, such as TF-IDF or BM25, are the de facto method. In this work, we show that retrieval can be practically implemented using dense representations alone, where embeddings are learned from a small number of questions and passages by a simple dualencoder framework. When evaluated on a wide range of open-domain QA datasets, our dense retriever outperforms a strong Lucene- BM25 system greatly by 9%-19% absolute in terms of top-20 passage retrieval accuracy, and helps our end-to-end QA system establish new state-of-the-art on multiple open-domain"
+        },
+        {
+          "page": 2,
+          "section": "introduction",
+          "category": "Results",
+          "text": "of careful ablation studies, our ﬁnal solution is surprisingly simple: the embedding is optimized for maximizing inner products of the question and relevant passage vectors, with an objective comparing all pairs of questions and passages in a batch. Our Dense Passage Retriever (DPR) is exceptionally strong. It not only outperforms BM25 by a large margin (65.2% vs. 42.9% in Top-5 accuracy), but also results in a substantial improvement on the end-to-end QA accuracy compared to ORQA (41.5% vs. 33.3%) in the open Natural Questions setting (Lee et al., 2019; Kwiatkowski et al., 2019). Our contributions are twofold. First, we demonstrate that with the proper training setup, simply ﬁne-tuning the "
+        }
+      ]
+    }
+  }
+}

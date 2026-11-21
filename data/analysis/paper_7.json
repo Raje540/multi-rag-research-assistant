@@ -1,0 +1,151 @@
+{
+  "paper_id": 7,
+  "title": "Retrieval-Augmented Generation for Large Language Models: A Survey",
+  "code_version": "18",
+  "analyzed_at": "2026-11-12T12:40:27Z",
+  "model": "llama3.2:3b",
+  "dimensions": {
+    "Novelty": {
+      "summary": "Not stated",
+      "method": "extractive",
+      "from_tagged_section": true,
+      "citation": "",
+      "evidence": [
+        {
+          "page": 1,
+          "section": "college of design and innovation, tongji university",
+          "category": "Other",
+          "text": "3 College of Design and Innovation, Tongji University 4 Shanghai Key Laboratory of Intelligent Information Processing, School of Computer Science, Fudan University {gaoyunfan1602, carter.whfcarter}@gmail.com, yunx@fudan.edu.cn,"
+        },
+        {
+          "page": 2,
+          "section": "introduction",
+          "category": "Other",
+          "text": "g to the evaluation objects and evaluation dimensions. This survey aims to provide readers and relevant technicians with a more comprehensive and systematic understanding of large models and RAG, to familiarize with the evolution and key technologies of knowledge retrieval augmented technology, to discern the advantages and disadvantages of different technologies and their applicable scenarios, and the possible future development trends. In summary, our contributions are as follows:"
+        },
+        {
+          "page": 2,
+          "section": "this paper provides a comprehensive and systematic re-",
+          "category": "Other",
+          "text": "1. This paper provides a comprehensive and systematic review of the significant technological advancements in RAG. It delineates various paradigms within the RAG development, including the Naive RAG and Advanced RAG. Additionally, it offers insights into existing research revolving around the respective concepts of “Retrieval”, “Generation”, and “Augment”."
+        }
+      ]
+    },
+    "Methodology": {
+      "summary": "Retrieval-Augmented Generation, Modular RAG, Search Module. The modular RAG structure deviates from the conventional Naive RAG framework, which typically involves indexing, retrieval, and generation.",
+      "method": "llm",
+      "from_tagged_section": true,
+      "citation": "[Paper 7, Page 1, 2, 5, 7]",
+      "evidence": [
+        {
+          "page": 1,
+          "section": "abstract",
+          "category": "Sentence",
+          "text": "This survey paper provides an in-depth analysis of the evolution of RAG, focusing on three key paradigms: Naive RAG, Advanced RAG, and Modular RAG."
+        },
+        {
+          "page": 2,
+          "section": "this paper provides a comprehensive and systematic re-",
+          "category": "Sentence",
+          "text": "This paper provides a comprehensive and systematic review of the significant technological advancements in RAG."
+        },
+        {
+          "page": 2,
+          "section": "this paper categorizes and organizes central technolo-",
+          "category": "Sentence",
+          "text": "This paper categorizes and organizes central technologies in RAG, identifying several intrinsic patterns."
+        },
+        {
+          "page": 2,
+          "section": "introduction",
+          "category": "Sentence",
+          "text": "In addition, this paper also systematically summarizes the RAG evaluation system and other related content according to the evaluation objects and evaluation dimensions."
+        },
+        {
+          "page": 5,
+          "section": "rag framework",
+          "category": "Methodology",
+          "text": "Advanced RAG has refined its indexing approach using techniques such as sliding window, fine-grained segmentation, and metadata. Simultaneously, it has introduced various methods to optimize the retrieval process. As for its specific implementation, Advanced RAG can be configured either via a pipeline or in an end-to-end fashion. Pre-Retrieval Process • Optimizing Data Indexing The aim of optimizing data indexing is to boost the quality of the content being indexed. At present, there are five primary strategies being used to achieve this: enhancing the granularity of indexed data, optimizing index structures, adding metadata, alignment optimization, and mixed retrieval."
+        },
+        {
+          "page": 1,
+          "section": "college of design and innovation, tongji university",
+          "category": "Other",
+          "text": "3 College of Design and Innovation, Tongji University 4 Shanghai Key Laboratory of Intelligent Information Processing, School of Computer Science, Fudan University {gaoyunfan1602, carter.whfcarter}@gmail.com, yunx@fudan.edu.cn,"
+        },
+        {
+          "page": 7,
+          "section": "mixed retrieval: the strength of this strategy lies",
+          "category": "Methodology",
+          "text": "3.3 Modular RAG The modular RAG structure deviates from the conventional Naive RAG framework, which typically involves indexing, retrieval, and generation. This provides more versatility and flexibility in the overall process. The modular RAG paradigm is increasingly becoming the norm in the RAG domain, permitting either a serialized pipeline or an end-to-end training approach across multiple modules. The comparison between three RAG paradigms is depicted in Figure 3. New Modules • Search Module: Unlike the similarity retrieval between queries and corpora in Naive/Advanced RAG, the search module,"
+        }
+      ]
+    },
+    "Dataset": {
+      "summary": "Not stated",
+      "method": "extractive",
+      "from_tagged_section": true,
+      "citation": "",
+      "evidence": [
+        {
+          "page": 5,
+          "section": "adding metadata information",
+          "category": "Dataset",
+          "text": "3. Adding Metadata Information: The emphasis in this case is on integrating referenced metadata, such as dates and purposes, into chunks for filtering purposes. Incorporating metadata like chapters and subsections of references can also prove advantageous in improving retrieval. As we split the index into multiple chunks, the efficiency of retrieval may become a concern. Preliminary filtering through metadata can enhance both efficiency and relevance of retrieved information."
+        },
+        {
+          "page": 9,
+          "section": "mixed retrieval: the strength of this strategy lies",
+          "category": "Dataset",
+          "text": "Fine-tuning an Embedding model differs from the process used for a standard language model, primarily in terms of the datasets employed. In the prevalent approach to fine-tuning embedding models, the dataset consists of three main components: queries, corpus, and relevant docs. The embedding model searches for relevant documents in the corpus based on the query. Subsequently, the retrieval of relevant docs for the query, or lack thereof, serves as a metric for evaluating the model’s performance. During the construction of datasets, fine-tuning of models, and the evaluation process, various challenges may arise within each of these three components. In the LlamaIndex [Liu, 2023], a collection"
+        },
+        {
+          "page": 9,
+          "section": "mixed retrieval: the strength of this strategy lies",
+          "category": "Dataset",
+          "text": "Another innovative approach, the graph indexing technique, converts entities and relationships into nodes and connections, significantly improving relevance, especially in the context of multi-hop problems. The combination of these diverse methods has resulted in significant advancements, leading to enhanced retrieval outcomes and improved performance for RAG. Fine-tuning Embedding Models After determining the appropriate size of chunks, the next critical step involves embedding these chunks and the query into the semantic space using an embedding model. The effectiveness of the embedding is crucial, as it affects the model’s ability to represent the corpus. In recent research, prominent emb"
+        }
+      ]
+    },
+    "Results": {
+      "summary": "Not stated",
+      "method": "extractive",
+      "from_tagged_section": true,
+      "citation": "",
+      "evidence": [
+        {
+          "page": 19,
+          "section": "discussion",
+          "category": "Results",
+          "text": "Context Relevance Faithfulness Answer Relevance Noise Robustness Negative Rejection Information Integration Counterfactual Robustness Accuracy ✓ ✓ ✓ ✓ ✓ ✓ ✓ EM Recall ✓ Precision ✓ R-Rate ✓ ✓ Cosine Similarity ✓ Hit Rate ✓ MRR ✓ NDCG ✓ Evaluation Framework Evaluation Targets Evaluation Aspects Quantitative Metrics RGB† Retrieval Quality Generation Quality Noise Robustness Negative Rejection Information Integration Counterfactual Robustness Accuracy EM Accuracy Accuracy RECALL† Generation Quality Counterfactual Robustness R-Rate (Reappearance Rate) RAGAS‡ Retrieval Quality Generation Quality Context Relevance Faithfulness Answer Relevance * * Cosine Similarity ARES‡ Retrieval Quality Generati"
+        },
+        {
+          "page": 17,
+          "section": "rag evaluation",
+          "category": "Results",
+          "text": "7 RAG Evaluation With the rapid development and increasing applications of RAG in the NLP field, evaluating the performance and effectiveness of RAG models has become a focal point of research in the LLMs community. The aim of evaluation is to help understand and optimize the performance of RAG models in various application scenarios. In a significant amount of past research, the evaluation of RAG models mainly focused on their performance in specific downstream tasks, using standard assessment metrics and methods tailored to these tasks. For example, evaluations in question answering tasks are often based on metrics like exact match(EM) and F1 scores[Wang et al., 2023a, Shi et al., 2023, Fe"
+        },
+        {
+          "page": 18,
+          "section": "experiments",
+          "category": "Results",
+          "text": "7.3 Evaluation Framework: Benchmarks and Tools This section introduces the evaluation framework for RAG, including benchmark tests and automated evaluation tools. These tools and tests not only provide quantitative metrics for the performance of RAG models but also help to deepen the understanding of the model’s performance across various evaluation targets and aspects. The current state-of-the-art benchmark tests include RGB and RECALL[Chen et al., 2023b, Liu et al., 2023b], which are aimed at evaluating the required abilities of RAG models; while the latest automated evaluation tools include RAGAS[Es et al., 2023], ARES[Saad-Falcon et al., 2023], and TruLens. These tools all utilize LLMs a"
+        }
+      ]
+    },
+    "Limitations": {
+      "summary": "Overall, the technical stack of RAG’s toolchain has initially formed, and many enterprise-level applications have gradually emerged, but an all-in-one platform still needs to be refined.",
+      "method": "extractive",
+      "from_tagged_section": true,
+      "citation": "[Paper 7, Page 22]",
+      "evidence": [
+        {
+          "page": 22,
+          "section": "future prospects",
+          "category": "Other",
+          "text": "I-native frameworks, traditional software or cloud service providers have also expanded their service range. For instance, Verba9, provided by the vector database company Weaviate, focuses on personal assistants. Amazon offers its users the intelligent enterprise search service tool Kendra, based on RAG thinking. Users can search in different content repositories through built-in connectors. The development of the technical stack and RAG are mutually reinforcing. New technologies pose higher demands on the existing technical stack, while the optimization of the technical stack’s functions further promotes the development of RAG technology. Overall, the technical stack of RAG’s toolchain has "
+        }
+      ]
+    }
+  }
+}

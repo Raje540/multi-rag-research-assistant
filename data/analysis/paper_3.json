@@ -1,0 +1,151 @@
+{
+  "paper_id": 3,
+  "title": "Fake News Detection on Social Media: A Data Mining Perspective",
+  "code_version": "18",
+  "analyzed_at": "2026-11-12T15:08:27Z",
+  "model": "llama3.2:3b",
+  "dimensions": {
+    "Novelty": {
+      "summary": "To facilitate research in fake news detection on social media, in this survey we will review two aspects of the fake news detection problem: characterization and detection. As shown in Figure 1, we will ﬁrst describe the background of the fake news detection problem using theories and properties from psychology and social studies; then we present the detection approaches.",
+      "method": "extractive",
+      "from_tagged_section": true,
+      "citation": "[Paper 3, Page 2]",
+      "evidence": [
+        {
+          "page": 2,
+          "section": "introduction",
+          "category": "Other",
+          "text": "ew on existing fake news detection methods under various social media scenarios can provide a basic understanding on the state-of-the-art fake news detection methods. • Fake news detection on social media is still in the early age of development, and there are still many challenging issues that need further investigations. It is necessary to discuss potential research directions that can improve fake news detection and mitigation capabilities. To facilitate research in fake news detection on social media, in this survey we will review two aspects of the fake news detection problem: characterization and detection. As shown in Figure 1, we will ﬁrst describe the background of the fake news det"
+        }
+      ]
+    },
+    "Methodology": {
+      "summary": "News Content Models, specifically Knowledge-based and Style-based approaches.",
+      "method": "llm",
+      "from_tagged_section": true,
+      "citation": "[Paper 3, Page 1, 2, 6]",
+      "evidence": [
+        {
+          "page": 1,
+          "section": "abstract",
+          "category": "Sentence",
+          "text": "Because the issue of fake news detection on social media is both challenging and relevant, we conducted this survey to further facilitate research on the problem."
+        },
+        {
+          "page": 1,
+          "section": "abstract",
+          "category": "Sentence",
+          "text": "In this survey, we present a comprehensive review of detecting fake news on social media, including fake news characterizations on psychology and social theories, existing algorithms from a data mining perspective, evaluation metrics and representative datasets."
+        },
+        {
+          "page": 2,
+          "section": "fake news characterization",
+          "category": "Sentence",
+          "text": "Therefore, we ﬁrst discuss and compare some widely used deﬁnitions of fake news in the existing literature, and provide our deﬁnition of fake news that will be used for the remainder of this survey."
+        },
+        {
+          "page": 6,
+          "section": "fake news detection",
+          "category": "Methodology",
+          "text": "Post level features generate feature values for each post. Speciﬁcally, there are unique features for posts that represent the social response from general public, such as stance, topic, and credibility. Group level features aim to aggregate the feature values for all relevant posts for speciﬁc news articles by using “wisdom of crowds”. A more comprehensive list of group-level post features can also be found in"
+        },
+        {
+          "page": 6,
+          "section": "fake news detection",
+          "category": "Methodology",
+          "text": "Network-based: Users form diﬀerent networks on social media in terms of interests, topics, and relations. As mentioned before, fake news dissemination processes tend to form an echo chamber cycle, highlighting the value of extracting network-based features to represent these types of network patterns for fake news detection. Network-based features are extracted via constructing"
+        },
+        {
+          "page": 6,
+          "section": "methodology",
+          "category": "Methodology",
+          "text": "3.3 Model Construction In the previous section, we introduced features extracted from diﬀerent sources, i.e., news content and social context, for fake news detection. In this section, we discuss the details of the model construction process for several existing approaches. Speciﬁcally we categorize existing methods based on their main input sources as: News Content Models and Social Context Models. 3.3.1 News Content Models In this subsection, we focus on news content models, which mainly rely on news content features and existing factual sources to classify fake news. Speciﬁcally, existing approaches can be categorized as Knowledge-based and Style-based. Knowledge-based: Since fake news at"
+        }
+      ]
+    },
+    "Dataset": {
+      "summary": "BuzzFeedNews: A complete sample of news published in Facebook from 9 news agencies over a week close to the 2016 U.S. election. CREDBANK 19: A large-scale crowdsourced dataset of approximately 60 million tweets covering 96 days starting from October 2015, broken down to over 1,000 news events.",
+      "method": "llm",
+      "from_tagged_section": true,
+      "citation": "[Paper 3, Page 8]",
+      "evidence": [
+        {
+          "page": 8,
+          "section": "dataset",
+          "category": "Sentence",
+          "text": "BuzzFeedNews: This dataset comprises a complete sample of news published in Facebook from 9 news agencies over a week close to the 2016 U.S."
+        },
+        {
+          "page": 8,
+          "section": "dataset",
+          "category": "Sentence",
+          "text": "CREDBANK 19: This is a large scale crowdsourced dataset of approximately 60 million tweets that cover 96 days starting from October 2015."
+        },
+        {
+          "page": 8,
+          "section": "dataset",
+          "category": "Sentence",
+          "text": "Finally, CREDBANK was originally collected for tweet credibility assessment, so the tweets in this dataset are not really the social engagements for speciﬁc news articles."
+        },
+        {
+          "page": 8,
+          "section": "dataset",
+          "category": "Sentence",
+          "text": "This dataset, called FakeNewsNet, includes all mentioned news content and social context features with reliable ground truth fake news labels."
+        },
+        {
+          "page": 8,
+          "section": "dataset",
+          "category": "Dataset",
+          "text": "It searches all links on a given webpage for references to unreliable sources by checking against a manually complied list of domains. The labels are the outputs of BS detector, rather than human annotators. • CREDBANK 19: This is a large scale crowdsourced dataset of approximately 60 million tweets that cover 96 days starting from October 2015. All the tweets are broken down to be related to over 1,000 news events, with each event assessed for credibilities by 30 annotators from Amazon Mechanical Turk [52]. In Table 1, we compare these public fake news detection datasets, highlighting the features that can be extracted from each dataset. We can see that no existing public dataset can provid"
+        },
+        {
+          "page": 8,
+          "section": "dataset",
+          "category": "Dataset",
+          "text": "4.1 Datasets Online news can be collected from diﬀerent sources, such as news agency homepages, search engines, and social media websites. However, manually determining the veracity of news is a challenging task, usually requiring annotators with domain expertise who performs careful analysis of claims and additional evidence, context, and reports from authoritative sources. Generally, news data with annotations can be gathered in the following ways: Expert journalists, Fact-checking websites, Industry detectors, and Crowdsourced workers. However, there are no agreed upon benchmark datasets for the fake news detection problem. Some publicly available datasets are listed below: • BuzzFeedNews"
+        },
+        {
+          "page": 8,
+          "section": "dataset",
+          "category": "Dataset",
+          "text": "BS Detector data is collected and annotated by using a developed news veracity checking tool. As the labels have not been properly validated by human experts, any model trained on this data is really learning the parameters of BS Detector, rather than expert-annotated ground truth fake news. Finally, CREDBANK was originally collected for tweet credibility assessment, so the tweets in this dataset are not really the social engagements for speciﬁc news articles. To address the disadvantages of existing fake news detection datasets, we have an ongoing project to develop a usable dataset for fake news detection on social media. This dataset, called FakeNewsNet, includes all mentioned news conten"
+        }
+      ]
+    },
+    "Results": {
+      "summary": "Not stated",
+      "method": "extractive",
+      "from_tagged_section": false,
+      "citation": "",
+      "evidence": [
+        {
+          "page": 9,
+          "section": "dataset",
+          "category": "Dataset",
+          "text": "Dataset Features News Content Social Context Linguistic Visual User Post Network BuzzFeedNews ✓ LIAR ✓ BS Detector ✓ CREDBANK ✓ ✓ ✓ ✓ predictions. Thus, recall is used to measure the sensitivity, or the fraction of annotated fake news articles that are predicted to be fake news. F1 is used to combine precision and recall, which can provide an overall prediction performance for fake news detection. Note that for Precision, Recall, F1, and Accuracy, the higher the value, the better the performance. The Receiver Operating Characteristics (ROC) curve provides a way of comparing the performance of classiﬁers by looking at the trade-oﬀin the False Positive Rate (FPR) and the True Positive Rate (TP"
+        }
+      ]
+    },
+    "Limitations": {
+      "summary": "Note that linguistic-based features have been widely studied for general NLP tasks, such as text classiﬁcation and clustering, and speciﬁc applications such as author identiﬁcation [32] and deception detection [22], but the underlying characteristics of fake news have not been fully understood. From a dataset perspective, we demonstrated that there is no existing benchmark dataset that includes resources to extract all relevant features.",
+      "method": "extractive",
+      "from_tagged_section": true,
+      "citation": "[Paper 3, Page 10]",
+      "evidence": [
+        {
+          "page": 10,
+          "section": "open issuesandfutureresearch",
+          "category": "Limitations",
+          "text": "-oriented fake news research aims to determine eﬀective features for detecting fake news from multiple data sources. We have demonstrated that there are two major data sources: news content and social context. From a news content perspective, we introduced linguisticbased and visual-based techniques to extract features from text information. Note that linguistic-based features have been widely studied for general NLP tasks, such as text classiﬁcation and clustering, and speciﬁc applications such as author identiﬁcation [32] and deception detection [22], but the underlying characteristics of fake news have not been fully understood. Moreover, embedding techniques, such as word embedding and d"
+        },
+        {
+          "page": 10,
+          "section": "open issuesandfutureresearch",
+          "category": "Limitations",
+          "text": "6 OPEN ISSUESANDFUTURERESEARCH In this section, we present some open issues in fake news detection and future research directions. Fake news detection on social media is a newly emerging research area, so we aim to point out promising research directions from a data mining perspective. Speciﬁcally, as shown in Figure 2, we outline the research directions in four categories: Dataoriented, Feature-oriented, Model-oriented and Applicationoriented. Data-oriented: Data-oriented fake news research is focusing on diﬀerent kinds of data characteristics, such as : dataset, temporal and psychological. From a dataset perspective, we demonstrated that there is no existing benchmark dataset that includes"
+        }
+      ]
+    }
+  }
+}

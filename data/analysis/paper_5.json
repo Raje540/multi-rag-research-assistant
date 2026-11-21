@@ -1,0 +1,127 @@
+{
+  "paper_id": 5,
+  "title": "Lost in the Middle: How Language Models Use Long Contexts",
+  "code_version": "15",
+  "analyzed_at": "2026-11-11T12:41:20Z",
+  "model": "llama3.2:3b",
+  "dimensions": {
+    "Novelty": {
+      "summary": "Not stated",
+      "method": "extractive",
+      "from_tagged_section": true,
+      "citation": "",
+      "evidence": [
+        {
+          "page": 15,
+          "section": "total retrieved documents",
+          "category": "Other",
+          "text": "20 Total Retrieved Documents (~4K tokens, randomly ordered) claude-1.3 claude-1.3-100k gpt-3.5-turbo-0613 gpt-3.5-turbo-16k-0613 mpt-30b-instruct longchat-13b-16k in the prompt. 1st 5th 10th 15th 20th Position of Document with the Answer 50 60 70 80 90 Accuracy"
+        },
+        {
+          "page": 5,
+          "section": "experiments",
+          "category": "Results",
+          "text": "1st 5th 10th Position of Document with the Answer [table values omitted] Accuracy"
+        },
+        {
+          "page": 5,
+          "section": "total retrieved documents (~4k tokens)",
+          "category": "Other",
+          "text": "with an extended maximum context length of 16K tokens. We evaluate Claude-1.3 and Claude- 1.3 (100K) with the Anthropic API; Claude-1.3 has a maximum context length of 8K tokens, and Claude-1.3 (100K) has an extended context length of 100K tokens. 6"
+        }
+      ]
+    },
+    "Methodology": {
+      "summary": "The paper uses a long context approach, where models are trained on a large corpus of text and then fine-tuned on a specific task, such as multi-document question answering. The models are often better at using relevant information at the beginning and end of contexts, but suffer degraded performance in the middle.",
+      "method": "llm",
+      "from_tagged_section": true,
+      "citation": "[Paper 5, Page 5, 8, 18]",
+      "evidence": [
+        {
+          "page": 18,
+          "section": "methodology",
+          "category": "Methodology",
+          "text": "Model Index 0 Index 4 Index 9 Claude-1.3 62.9% 58.3% 59.7% Claude-1.3 (100K) 63.1% 58.3% 59.7% GPT-3.5-Turbo 76.8% 61.2% 62.4% GPT-3.5-Turbo (16K) 76.9% 61.0% 62.5% MPT-30B-Instruct 60.2% 56.2% 59.7% LongChat-13B (16K) 72.1% 58.9% 58.5% G.2"
+        },
+        {
+          "page": 8,
+          "section": "total retrieved documents (~2k tokens)",
+          "category": "Other",
+          "text": "10 Total Retrieved Documents (~2K tokens) 1st 5th 10th 15th 20th Position of Document with the Answer 50 55 60 65 70 Accuracy"
+        },
+        {
+          "page": 5,
+          "section": "methodology",
+          "category": "Methodology",
+          "text": "Model Closed-Book Oracle LongChat-13B (16K) 35.0% 83.4% MPT-30B-Instruct 31.5% 81.9% GPT-3.5-Turbo 56.1% 88.3% GPT-3.5-Turbo (16K) 56.0% 88.6% Claude-1.3 48.3% 76.1% Claude-1.3 (100K) 48.2% 76.4% shaped performance curve—models are often much better at using relevant information that occurs at the very beginning (primacy bias) and very end of contexts (recency bias), and suffer degraded performance when forced to use information within the middle of its input context. For example, GPT-3.5- Turbo’s multi-document QA performance can drop by more than 20%—in the worst case, performance in 20- and 30-document settings is lower than performance without any input documents (i.e., closedbook perfor"
+        }
+      ]
+    },
+    "Dataset": {
+      "summary": "NaturalQuestions-Open, collected by issuing historical queries to the Google search engine.",
+      "method": "llm",
+      "from_tagged_section": false,
+      "citation": "[Paper 5, Page 3, 9, 11]",
+      "evidence": [
+        {
+          "page": 11,
+          "section": "conclusion",
+          "category": "Other",
+          "text": "Our results and analysis provide a better understanding of how language models use their input context and provides new evaluation protocols for future long-context models. Acknowledgments We would like to thank Luke Zettlemoyer, who served as our TACL action editor, and the the anonymous reviewers for their comments and feedback. We also thank Claudiu Leoveanu-Condrei, Megan Leszczynski, Dmytro Okhonko, Maithra Raghu, Eric Wallace and Sang Michael Xie for feedback and discussions that helped improve this work. Further, we are grateful to Sewon Min for her help with the AmbigQA dataset. This work was supported by the Stanford Center for Research on Foundation Models (CRFM), by OpenAI via an "
+        },
+        {
+          "page": 9,
+          "section": "is more context is always better?",
+          "category": "Results",
+          "text": "We use language models in a standard retrieverreader setup. A retrieval system (Contriever, finetuned on MS-MARCO) takes an input query from NaturalQuestions-Open and returns the k documents from Wikipedia with the highest relevance score. To condition language models on these retrieved documents, we simply include them in the prompt. We evaluate retriever recall and reader accuracy (whether any of the annotated answers appear in the predicted output) as a function of the number of retrieved documents k. We use a subset of NaturalQuestions-Open where the long answer is a paragraph (as opposed to a table or a list). Figure 11 presents retriever recall and open-"
+        },
+        {
+          "page": 3,
+          "section": "experiments",
+          "category": "Results",
+          "text": "2.1 Experimental Setup In the multi-document question answering task, the model inputs are (i) a question to answer and (ii) k documents (e.g., passages from Wikipedia), where exactly one of the documents contains the answer 1nelsonliu.me/papers/lost-in-the-middle to the question and k −1 “distractor” documents do not. This task requires the model to access the document that contains the answer within its input context and use it to answer the question. Figure 2 presents an example. We instantiate this task with data from NaturalQuestions-Open (Lee et al., 2019; Kwiatkowski et al., 2019), which contains historical queries issued to the Google search engine, coupled with human-annotated answe"
+        }
+      ]
+    },
+    "Results": {
+      "summary": "Not stated",
+      "method": "extractive",
+      "from_tagged_section": true,
+      "citation": "",
+      "evidence": [
+        {
+          "page": 5,
+          "section": "experiments",
+          "category": "Results",
+          "text": "1st 5th 10th Position of Document with the Answer [table values omitted] Accuracy"
+        },
+        {
+          "page": 15,
+          "section": "total retrieved documents",
+          "category": "Other",
+          "text": "1st 5th 10th 15th 20th Position of Document with the Answer 65 70 75 80 Accuracy"
+        },
+        {
+          "page": 16,
+          "section": "total retrieved documents",
+          "category": "Results",
+          "text": "The 7B models with and without additional fine-tuning show minimal primacy bias, and are largely recency-biased. The 13B base model has a dramatic primacy and recency bias—there is a 20-point accuracy disparity between the bestand worst-case performance. Applying additional finetuning to the 13B seems to slightly reduce this bias (10-point worst-case degradation), but the bias remains significant. However, the 70B models with and without additional fine-tuning have largely similar trends (showing both primacy and recency bias), and additional fine-tuning minimally changes the positional bias severity. 1st 5th 10th 15th 20th Position of Document with the Answer [table values omitted] Accuracy"
+        }
+      ]
+    },
+    "Limitations": {
+      "summary": "We use greedy decoding when generating outputs and leave exploration of other decoding methods to future work.",
+      "method": "extractive",
+      "from_tagged_section": true,
+      "citation": "[Paper 5, Page 4]",
+      "evidence": [
+        {
+          "page": 4,
+          "section": "experiments",
+          "category": "Limitations",
+          "text": "is similar to the needlein-a-haystack experiments of Ivgi et al. (2023), who compare question answering performance when the relevant paragraph is placed (i) at the beginning of the input or (ii) a random position within the input. They find that encoder-decoder models have significantly higher performance when relevant information is placed at the start of the input context. In contrast, we study finer-grained changes in the position of relevant information. 2.2 Models We analyze several state-of-the-art open and closed language models. We use greedy decoding when generating outputs and leave exploration of other decoding methods to future work. We use a standard set of prompts for each mod"
+        }
+      ]
+    }
+  }
+}

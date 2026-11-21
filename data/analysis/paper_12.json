@@ -1,0 +1,151 @@
+{
+  "paper_id": 12,
+  "title": "Training data-efﬁcient image transformers & distillation through attention",
+  "code_version": "18",
+  "analyzed_at": "2026-11-12T13:21:13Z",
+  "model": "llama3.2:3b",
+  "dimensions": {
+    "Novelty": {
+      "summary": "In this paper, we train a vision transformer on a single 8-GPU node in two to three days (53 hours of pre-training, and optionally 20 hours of ﬁne-tuning) that is competitive with convnets having a similar number of parameters and efﬁciency. We build upon the visual transformer architecture from Dosovitskiy et al. [15] and improvements included in the timm library [55].",
+      "method": "extractive",
+      "from_tagged_section": true,
+      "citation": "[Paper 12, Page 2]",
+      "evidence": [
+        {
+          "page": 2,
+          "section": "introduction",
+          "category": "Results",
+          "text": "ning of these models involved extensive computing resources. In this paper, we train a vision transformer on a single 8-GPU node in two to three days (53 hours of pre-training, and optionally 20 hours of ﬁne-tuning) that is competitive with convnets having a similar number of parameters and efﬁciency. It uses Imagenet as the sole training set. We build upon the visual transformer architecture from Dosovitskiy et al. [15] and improvements included in the timm library [55]. With our Data-efﬁcient image Transformers (DeiT), we report large improvements over previous results, see Figure 1. Our ablation study details the hyper-parameters and key ingredients for a successful training, such as repe"
+        }
+      ]
+    },
+    "Methodology": {
+      "summary": "Training time: less than 3 days, 53 hours of pre-training. Model: Vision Transformer (ViT).",
+      "method": "llm",
+      "from_tagged_section": true,
+      "citation": "[Paper 12, Page 1, 2, 12, 14, 18]",
+      "evidence": [
+        {
+          "page": 1,
+          "section": "abstract",
+          "category": "Sentence",
+          "text": "We train them on a single computer in less than 3 days."
+        },
+        {
+          "page": 1,
+          "section": "abstract",
+          "category": "Sentence",
+          "text": "More importantly, we introduce a teacher-student strategy speciﬁc to transformers."
+        },
+        {
+          "page": 2,
+          "section": "introduction",
+          "category": "Sentence",
+          "text": "In this paper, we train a vision transformer on a single 8-GPU node in two to three days (53 hours of pre-training, and optionally 20 hours of ﬁne-tuning) that is competitive with convnets having a similar number of parameters and efﬁciency."
+        },
+        {
+          "page": 2,
+          "section": "introduction",
+          "category": "Sentence",
+          "text": "We build upon the visual transformer architecture from Dosovitskiy et al. [15] and improvements included in the timm library [55]."
+        },
+        {
+          "page": 18,
+          "section": "conclusion",
+          "category": "Other",
+          "text": "We provide an open-source implementation of our method. It is available at Acknowledgements Many thanks to Ross Wightman for sharing his ViT code and bootstrapping training method with the community, as well as for valuable feedback that helped us to ﬁx different aspects of this paper. Thanks to Vinicius Reis, Mannat Singh, Ari Morcos, Mark Tygert, Gabriel Synnaeve, and other colleagues at Facebook for brainstorming and some exploration on this axis. Thanks to Ross Girshick and Piotr Dollar for constructive comments. 18"
+        },
+        {
+          "page": 14,
+          "section": "methodology",
+          "category": "Methodology",
+          "text": "Model ImageNet CIFAR-10 CIFAR-100 Flowers Cars iNat-18 iNat-19 im/sec Graﬁt ResNet-50 [49] [table values omitted] Graﬁt RegNetY-8GF [49] [table values omitted] ResNet-152 [10] 69.1 526.3 EfﬁcientNet-B7 [48] [table values omitted] ViT-B/32 [15] [table values omitted] ViT-B/16 [15] [table values omitted] ViT-L/32 [15] [table values omitted] ViT-L/16 [15] [table values omitted] DeiT-B [table values omitted] DeiT-B↑[table values omitted] DeiT-B⚗ [table values omitted] DeiT-B⚗↑[table values omitted] ules (up to 7200 epochs, which corresponds to 300 Imagenet epochs) so that the network has been fed a comparable number of images in total; (2) we rescale images to 224 × 224 to ensure that we have th"
+        },
+        {
+          "page": 12,
+          "section": "methodology",
+          "category": "Methodology",
+          "text": "The throughput is measured as the number of images that we"
+        }
+      ]
+    },
+    "Dataset": {
+      "summary": "iNaturalist 2018, iNaturalist 2019, Flowers-102, Stanford Cars, CIFAR-100, CIFAR-10. These datasets were collected from the wild.",
+      "method": "llm",
+      "from_tagged_section": true,
+      "citation": "[Paper 12, Page 13, 14, 15]",
+      "evidence": [
+        {
+          "page": 13,
+          "section": "methodology",
+          "category": "Sentence",
+          "text": "Transfer learning: Performance on downstream tasks Although DeiT perform very well on ImageNet it is important to evaluate them on other datasets with transfer learning in order to measure the power of generalization of DeiT."
+        },
+        {
+          "page": 14,
+          "section": "dataset",
+          "category": "Dataset",
+          "text": "Dataset Train size Test size #classes ImageNet [42] 1,281,167 50,000 1000 iNaturalist 2018 [26] 437,513 24,426 8,142 iNaturalist 2019 [27] 265,240 3,003 1,010 Flowers-102 [38] 2,040 6,149 102 Stanford Cars [30] 8,144 8,041 196 CIFAR-100 [31] 50,000 10,000 100 CIFAR-10 [31] 50,000 10,000 10 We also report results with convolutional architectures for reference."
+        },
+        {
+          "page": 13,
+          "section": "methodology",
+          "category": "Methodology",
+          "text": "We investigate the performance when training from scratch on a small dataset, without Imagenet pre-training. We get the following results on the small CIFAR-10, which is small both w.r.t. the number of images and labels:"
+        },
+        {
+          "page": 15,
+          "section": "training details & ablation",
+          "category": "Other",
+          "text": "We take the typical values τ = 3.0 and λ = 0.1 for the usual (soft) distillation. Data-Augmentation. Compared to models that integrate more priors (such as convolutions), transformers require a larger amount of data. Thus, in order to train with datasets of the same size, we rely on extensive data augmentation. We evaluate different types of strong data augmentation, with the objective to reach a data-efﬁcient training regime. Auto-Augment [11], Rand-Augment [12], and random erasing [62] improve the results. For the two latter we use the timm [55] customizations, and after ablation we choose Rand-Augment instead of AutoAugment. Overall our experiments conﬁrm that transformers require a stron"
+        }
+      ]
+    },
+    "Results": {
+      "summary": "Our reference vision transformer (86M parameters) achieves top-1 accuracy of 83.1% (single-crop) on ImageNet with no external data. This leads us to report results competitive with convnets for both Imagenet (where we obtain up to 85.2% accuracy) and when transferring to other tasks.",
+      "method": "extractive",
+      "from_tagged_section": false,
+      "citation": "[Paper 12, Page 1]",
+      "evidence": [
+        {
+          "page": 1,
+          "section": "abstract",
+          "category": "Sentence",
+          "text": "Our reference vision transformer (86M parameters) achieves top-1 accuracy of 83.1% (single-crop) on ImageNet with no external data."
+        },
+        {
+          "page": 1,
+          "section": "abstract",
+          "category": "Sentence",
+          "text": "This leads us to report results competitive with convnets for both Imagenet (where we obtain up to 85.2% accuracy) and when transferring to other tasks."
+        }
+      ]
+    },
+    "Limitations": {
+      "summary": "Not stated",
+      "method": "extractive",
+      "from_tagged_section": false,
+      "citation": "",
+      "evidence": [
+        {
+          "page": 17,
+          "section": "conclusion",
+          "category": "Other",
+          "text": "7 Conclusion In this paper, we have introduced DeiT, which are image transformers that do not require very large amount of data to be trained, thanks to improved 3Formally it means that we have 100 epochs, but each is 3x longer because of the repeated augmentations. We prefer to refer to this as 300 epochs in order to have a direct comparison on the effective training time with and without repeated augmentation. 17"
+        },
+        {
+          "page": 18,
+          "section": "conclusion",
+          "category": "Methodology",
+          "text": "training and in particular a novel distillation procedure. Convolutional neural networks have optimized, both in terms of architecture and optimization during almost a decade, including through extensive architecture search that is prone to overﬁting, as it is the case for instance for EfﬁcientNets [51]. For DeiT we have started the existing data augmentation and regularization strategies pre-existing for convnets, not introducing any signiﬁcant architectural beyond our novel distillation token. Therefore it is likely that research on dataaugmentation more adapted or learned for transformers will bring further gains. Therefore, considering our results, where image transformers are on par wit"
+        },
+        {
+          "page": 18,
+          "section": "conclusion",
+          "category": "Other",
+          "text": "their lower memory footprint for a given accuracy. We provide an open-source implementation of our method. It is available at   Acknowledgements Many thanks to Ross Wightman for sharing his ViT code and bootstrapping training method with the community, as well as for valuable feedback that helped us to ﬁx different aspects of this paper. Thanks to Vinicius Reis, Mannat Singh, Ari Morcos, Mark Tygert, Gabriel Synnaeve, and other colleagues at Facebook for brainstorming and some exploration on this axis. Thanks to Ross Girshick and Piotr Dollar for constructive comments. 18"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,169 @@
+{
+  "paper_id": 10,
+  "title": "AN IMAGE IS WORTH 16X16 WORDS: TRANSFORMERS FOR IMAGE RECOGNITION AT SCALE",
+  "code_version": "18",
+  "analyzed_at": "2026-11-12T13:18:06Z",
+  "model": "llama3.2:3b",
+  "dimensions": {
+    "Novelty": {
+      "summary": "Unlike prior works using self-attention in computer vision, we do not introduce image-speciﬁc inductive biases into the architecture apart from the initial patch extraction step.",
+      "method": "extractive",
+      "from_tagged_section": true,
+      "citation": "[Paper 10, Page 9]",
+      "evidence": [
+        {
+          "page": 9,
+          "section": "conclusion",
+          "category": "Dataset",
+          "text": "5 CONCLUSION We have explored the direct application of Transformers to image recognition. Unlike prior works using self-attention in computer vision, we do not introduce image-speciﬁc inductive biases into the architecture apart from the initial patch extraction step. Instead, we interpret an image as a sequence of patches and process it by a standard Transformer encoder as used in NLP. This simple, yet scalable, strategy works surprisingly well when coupled with pre-training on large datasets. Thus, Vision Transformer matches or exceeds the state of the art on many image classiﬁcation datasets, whilst being relatively cheap to pre-train. While these initial results are encouraging, many ch"
+        }
+      ]
+    },
+    "Methodology": {
+      "summary": "Not stated",
+      "method": "llm",
+      "from_tagged_section": true,
+      "citation": "",
+      "evidence": [
+        {
+          "page": 1,
+          "section": "introduction",
+          "category": "Sentence",
+          "text": "We train the model on image classiﬁcation in supervised fashion."
+        },
+        {
+          "page": 2,
+          "section": "introduction",
+          "category": "Sentence",
+          "text": "We ﬁnd that large scale training trumps inductive bias."
+        },
+        {
+          "page": 3,
+          "section": "methodology",
+          "category": "Sentence",
+          "text": "We use standard learnable 1D position embeddings, since we have not observed signiﬁcant performance gains from using more advanced 2D-aware position embeddings (Appendix D.4)."
+        },
+        {
+          "page": 4,
+          "section": "methodology",
+          "category": "Sentence",
+          "text": "Typically, we pre-train ViT on large datasets, and ﬁne-tune to (smaller) downstream tasks."
+        },
+        {
+          "page": 3,
+          "section": "methodology",
+          "category": "Methodology",
+          "text": "3 METHOD In model design we follow the original Transformer (Vaswani et al., 2017) as closely as possible. An advantage of this intentionally simple setup is that scalable NLP Transformer architectures – and their efﬁcient implementations – can be used almost out of the box. 3.1 VISION TRANSFORMER (VIT) An overview of the model is depicted in Figure 1. The standard Transformer receives as input a 1D sequence of token embeddings. To handle 2D images, we reshape the image x ∈RH×W ×C into a sequence of ﬂattened 2D patches xp ∈RN×(P 2·C), where (H, W) is the resolution of the original image, C is the number of channels, (P, P) is the resolution of each image patch, and N = HW/P 2 is the resultin"
+        },
+        {
+          "page": 9,
+          "section": "conclusion",
+          "category": "Other",
+          "text": "Our results, coupled with those in Carion et al. (2020), indicate the promise of this approach. Another challenge is to continue exploring selfsupervised pre-training methods. Our initial experiments show improvement from self-supervised pre-training, but there is still large gap between self-supervised and large-scale supervised pretraining. Finally, further scaling of ViT would likely lead to improved performance. ACKNOWLEDGEMENTS The work was performed in Berlin, Z¨urich, and Amsterdam. We thank many colleagues at Google for their help, in particular Andreas Steiner for crucial help with the infrastructure and the opensource release of the code; Joan Puigcerver and Maxim Neumann for help "
+        },
+        {
+          "page": 19,
+          "section": "network depth (layer)",
+          "category": "Other",
+          "text": "Therefore, we were not able to use it for extensive large-scale experiments. These may be unlocked by a carefully optimized implementation. 19"
+        }
+      ]
+    },
+    "Dataset": {
+      "summary": "The paper uses the ILSVRC-2012 ImageNet dataset, ImageNet-21k, and JFT datasets, which were collected from ImageNet and JFT-300M, respectively.",
+      "method": "llm",
+      "from_tagged_section": true,
+      "citation": "[Paper 10, Page 4, 7, 13]",
+      "evidence": [
+        {
+          "page": 4,
+          "section": "experiments",
+          "category": "Sentence",
+          "text": "To explore model scalability, we use the ILSVRC-2012 ImageNet dataset with 1k classes and 1.3M images (we refer to it as ImageNet in what follows), its superset ImageNet-21k with 21k classes and 14M images (Deng et al., 2009), and JFT (Sun et al., 2017) with 18k classes and 303M high-resolution images."
+        },
+        {
+          "page": 4,
+          "section": "experiments",
+          "category": "Sentence",
+          "text": "We transfer the models trained on these dataset to several benchmark tasks: ImageNet on the original validation labels and the cleaned-up ReaL labels (Beyer et al., 2020), CIFAR-10/100 (Krizhevsky, 2009), Oxford-IIIT Pets (Parkhi et al., 2012), and Oxford Flowers-102 (Nilsback & Zisserman, 2008)."
+        },
+        {
+          "page": 4,
+          "section": "experiments",
+          "category": "Sentence",
+          "text": "To understand the data requirements of each model, we pre-train on datasets of varying size and evaluate many benchmark tasks."
+        },
+        {
+          "page": 13,
+          "section": "experiments",
+          "category": "Sentence",
+          "text": "To do so, we use small sub-splits from the training set (10% for Pets and Flowers, 2% for CIFAR, 1% ImageNet) as development set and train on the remaining data."
+        },
+        {
+          "page": 7,
+          "section": "methodology",
+          "category": "Methodology",
+          "text": "Overall, the few-shot results on ImageNet (Figure 4), as well as the low-data results on VTAB (Table 2) seem promising for very low-data transfer. 7"
+        },
+        {
+          "page": 4,
+          "section": "experiments",
+          "category": "Dataset",
+          "text": "4 EXPERIMENTS We evaluate the representation learning capabilities of ResNet, Vision Transformer (ViT), and the hybrid. To understand the data requirements of each model, we pre-train on datasets of varying size and evaluate many benchmark tasks. When considering the computational cost of pre-training the model, ViT performs very favourably, attaining state of the art on most recognition benchmarks at a lower pre-training cost. Lastly, we perform a small experiment using self-supervision, and show that self-supervised ViT holds promise for the future. 4.1 SETUP Datasets. To explore model scalability, we use the ILSVRC-2012 ImageNet dataset with 1k classes and 1.3M images (we refer to it as I"
+        },
+        {
+          "page": 13,
+          "section": "dataset",
+          "category": "Dataset",
+          "text": "Dataset Epochs Base LR LR decay Weight decay Dropout ViT-B/{16,32} JFT-300M 7 8 · 10−4 linear 0.1 0.0 ViT-L/32 JFT-300M 7 6 · 10−4 linear 0.1 0.0 ViT-L/16 JFT-300M 7/14 4 · 10−4 linear 0.1 0.0 ViT-H/14 JFT-300M 14 3 · 10−4 linear 0.1 0.0 R50x{1,2} JFT-300M 7 10−3 linear 0.1 0.0 R101x1 JFT-300M 7 8 · 10−4 linear 0.1 0.0 R152x{1,2} JFT-300M 7 6 · 10−4 linear 0.1 0.0 R50+ViT-B/{16,32} JFT-300M 7 8 · 10−4 linear 0.1 0.0 R50+ViT-L/32 JFT-300M 7 2 · 10−4 linear 0.1 0.0 R50+ViT-L/16 JFT-300M 7/14 4 · 10−4 linear 0.1 0.0 ViT-B/{16,32} ImageNet-21k 90 10−3 linear 0.03 0.1 ViT-L/{16,32} ImageNet-21k 30/90 10−3 linear 0.03 0.1 ViT-∗ ImageNet 300 3 · 10−3 cosine 0.3 0.1 All models are trained with a bat"
+        }
+      ]
+    },
+    "Results": {
+      "summary": "We do, however, use early-stopping, and report the best validation accuracy achieved during training. With self-supervised pre-training, our smaller ViT-B/16 model achieves 79.9% accuracy on ImageNet, a signiﬁcant improvement of 2% to training from scratch, but still 4% behind supervised pre-training.",
+      "method": "extractive",
+      "from_tagged_section": true,
+      "citation": "[Paper 10, Page 7, 9]",
+      "evidence": [
+        {
+          "page": 7,
+          "section": "methodology",
+          "category": "Sentence",
+          "text": "We do, however, use early-stopping, and report the best validation accuracy achieved during training."
+        },
+        {
+          "page": 9,
+          "section": "network depth (layer)",
+          "category": "Sentence",
+          "text": "With self-supervised pre-training, our smaller ViT-B/16 model achieves 79.9% accuracy on ImageNet, a signiﬁcant improvement of 2% to training from scratch, but still 4% behind supervised pre-training."
+        }
+      ]
+    },
+    "Limitations": {
+      "summary": "Not stated",
+      "method": "extractive",
+      "from_tagged_section": false,
+      "citation": "",
+      "evidence": [
+        {
+          "page": 9,
+          "section": "conclusion",
+          "category": "Dataset",
+          "text": "5 CONCLUSION We have explored the direct application of Transformers to image recognition. Unlike prior works using self-attention in computer vision, we do not introduce image-speciﬁc inductive biases into the architecture apart from the initial patch extraction step. Instead, we interpret an image as a sequence of patches and process it by a standard Transformer encoder as used in NLP. This simple, yet scalable, strategy works surprisingly well when coupled with pre-training on large datasets. Thus, Vision Transformer matches or exceeds the state of the art on many image classiﬁcation datasets, whilst being relatively cheap to pre-train. While these initial results are encouraging, many ch"
+        },
+        {
+          "page": 9,
+          "section": "conclusion",
+          "category": "Other",
+          "text": "mentation. Our results, coupled with those in Carion et al. (2020), indicate the promise of this approach. Another challenge is to continue exploring selfsupervised pre-training methods. Our initial experiments show improvement from self-supervised pre-training, but there is still large gap between self-supervised and large-scale supervised pretraining. Finally, further scaling of ViT would likely lead to improved performance. ACKNOWLEDGEMENTS The work was performed in Berlin, Z¨urich, and Amsterdam. We thank many colleagues at Google for their help, in particular Andreas Steiner for crucial help with the infrastructure and the opensource release of the code; Joan Puigcerver and Maxim Neuman"
+        },
+        {
+          "page": 19,
+          "section": "network depth (layer)",
+          "category": "Other",
+          "text": ", our implementation, similar to the open-source implementation, is very slow on TPUs. Therefore, we were not able to use it for extensive large-scale experiments. These may be unlocked by a carefully optimized implementation. 19"
+        }
+      ]
+    }
+  }
+}

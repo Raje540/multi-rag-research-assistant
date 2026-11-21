@@ -11,5 +11,3 @@ data/processed/*
 .streamlit/secrets.toml
 .DS_Store
 
-research.db
-data/

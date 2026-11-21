@@ -1,0 +1,139 @@
+{
+  "paper_id": 13,
+  "title": "Deep Residual Learning for Image Recognition",
+  "code_version": "18",
+  "analyzed_at": "2026-11-12T13:22:56Z",
+  "model": "llama3.2:3b",
+  "dimensions": {
+    "Novelty": {
+      "summary": "In this paper, we address the degradation problem by introducing a deep residual learning framework. We present comprehensive experiments on ImageNet [36] to show the degradation problem and evaluate our method. In real cases, it is unlikely that identity mappings are optimal, but our reformulation may help to precondition the problem.",
+      "method": "extractive",
+      "from_tagged_section": true,
+      "citation": "[Paper 13, Page 2, 3]",
+      "evidence": [
+        {
+          "page": 2,
+          "section": "introduction",
+          "category": "Methodology",
+          "text": "identity weight layer weight layer relu relu F(x)\u0001+\u0001x x F(x) x Figure 2. Residual learning: a building block. are comparably good or better than the constructed solution (or unable to do so in feasible time). In this paper, we address the degradation problem by introducing a deep residual learning framework. Instead of hoping each few stacked layers directly ﬁt a desired underlying mapping, we explicitly let these layers ﬁt a residual mapping. Formally, denoting the desired underlying mapping as H(x), we let the stacked nonlinear layers ﬁt another mapping of F(x) := H(x)−x. The original mapping is recast into F(x)+x. We hypothesize that it is easier to optimize the residual mapping than to o"
+        },
+        {
+          "page": 2,
+          "section": "introduction",
+          "category": "Methodology",
+          "text": "optimal, it would be easier to push the residual to zero than to ﬁt an identity mapping by a stack of nonlinear layers. The formulation of F(x)+x can be realized by feedforward neural networks with “shortcut connections” (Fig. 2). In our case, the shortcut connections simply perform identity mapping, and their outputs are added to the outputs of the stacked layers (Fig. 2). Identity shortcut connections add neither extra parameter nor computational complexity. We present comprehensive experiments on ImageNet [36] to show the degradation problem and evaluate our method. We show that: 1) Our extremely deep residual nets are easy to optimize, but the counterpart “plain” nets (that simply stack "
+        },
+        {
+          "page": 3,
+          "section": "deep residual learning",
+          "category": "Methodology",
+          "text": "d), the ease of learning might be different. This reformulation is motivated by the counterintuitive phenomena about the degradation problem (Fig. 1, left). As we discussed in the introduction, if the added layers can be constructed as identity mappings, a deeper model should have training error no greater than its shallower counterpart. The degradation problem suggests that the solvers might have difﬁculties in approximating identity mappings by multiple nonlinear layers. With the residual learning reformulation, if identity mappings are optimal, the solvers may simply drive the weights of the multiple nonlinear layers toward zero to approach identity mappings. In real cases, it is unlikely"
+        }
+      ]
+    },
+    "Methodology": {
+      "summary": "We present a residual learning framework to ease the training of networks that are substantially deeper than those used previously. We present successfully trained models on this dataset with over 100 layers, and explore models with over 1000 layers.",
+      "method": "extractive",
+      "from_tagged_section": true,
+      "citation": "[Paper 13, Page 1, 2]",
+      "evidence": [
+        {
+          "page": 1,
+          "section": "abstract",
+          "category": "Sentence",
+          "text": "We present a residual learning framework to ease the training of networks that are substantially deeper than those used previously."
+        },
+        {
+          "page": 2,
+          "section": "introduction",
+          "category": "Sentence",
+          "text": "We present successfully trained models on this dataset with over 100 layers, and explore models with over 1000 layers."
+        }
+      ]
+    },
+    "Dataset": {
+      "summary": "ImageNet 2012 and CIFAR-10 datasets. The paper evaluates its method on these datasets, with the 152-layer ResNet achieving a top-5 validation error of 4.49% on ImageNet and a top-5 error of 3.57% on CIFAR-10.",
+      "method": "llm",
+      "from_tagged_section": true,
+      "citation": "[Paper 13, Page 1, 4, 7, 8]",
+      "evidence": [
+        {
+          "page": 4,
+          "section": "experiments",
+          "category": "Sentence",
+          "text": "ImageNet Classiﬁcation We evaluate our method on the ImageNet 2012 classiﬁ- cation dataset [36] that consists of 1000 classes."
+        },
+        {
+          "page": 8,
+          "section": "experiments",
+          "category": "Sentence",
+          "text": "Most remarkably, on the challenging COCO dataset we obtain a 6.0% increase in COCO’s standard metric (mAP@[.5, .95]), which is a 28% relative improvement."
+        },
+        {
+          "page": 1,
+          "section": "abstract",
+          "category": "Sentence",
+          "text": "On the ImageNet dataset we evaluate residual nets with a depth of up to 152 layers—8× deeper than VGG nets [41] but still having lower complexity."
+        },
+        {
+          "page": 7,
+          "section": "experiments",
+          "category": "Sentence",
+          "text": "We present experiments trained on the training set and evaluated on the test set."
+        },
+        {
+          "page": 1,
+          "section": "introduction",
+          "category": "Methodology",
+          "text": "1. Introduction Deep convolutional neural networks [22, 21] have led to a series of breakthroughs for image classiﬁcation [21, 50, 40]. Deep networks naturally integrate low/mid/highlevel features [50] and classiﬁers in an end-to-end multilayer fashion, and the “levels” of features can be enriched by the number of stacked layers (depth). Recent evidence [41, 44] reveals that network depth is of crucial importance, and the leading results [41, 44, 13, 16] on the challenging ImageNet dataset [36] all exploit “very deep” [41] models, with a depth of sixteen [41] to thirty [16]. Many other nontrivial visual recognition tasks [8, 12, 7, 32, 27] have also 1 and [table values omitted] iter. (1e4) t"
+        },
+        {
+          "page": 7,
+          "section": "experiments",
+          "category": "Dataset",
+          "text": "In Table 4 we compare with the previous best single-model results. Our baseline 34-layer ResNets have achieved very competitive accuracy. Our 152-layer ResNet has a single-model top-5 validation error of 4.49%. This single-model result outperforms all previous ensemble results (Table 5). We combine six models of different depth to form an ensemble (only with two 152-layer ones at the time of submitting). This leads to 3.57% top-5 error on the test set (Table 5). This entry won the 1st place in ILSVRC 2015. 4.2. CIFAR-10 and Analysis We conducted more studies on the CIFAR-10 dataset [20], which consists of 50k training images and 10k testing images in 10 classes. We present experiments traine"
+        },
+        {
+          "page": 8,
+          "section": "experiments",
+          "category": "Dataset",
+          "text": "Object detection mAP (%) on the PASCAL VOC 2007/2012 test sets using baseline Faster R-CNN. See also Table 10 and 11 for better results. metric mAP@.5 mAP@[.5, .95] VGG-16 41.5 21.2 ResNet-101 48.4 27.2 Table 8. Object detection mAP (%) on the COCO validation set using baseline Faster R-CNN. See also Table 9 for better results. have similar training error. We argue that this is because of overﬁtting. The 1202-layer network may be unnecessarily large (19.4M) for this small dataset. Strong regularization such as maxout [10] or dropout [14] is applied to obtain the best results ([10, 25, 24, 35]) on this dataset. In this paper, we use no maxout/dropout and just simply impose regularization via "
+        }
+      ]
+    },
+    "Results": {
+      "summary": "This indicates that the degradation problem is well addressed in this setting and we manage to obtain accuracy gains from increased depth. ResNet reduces the top-1 error by 3.5% (Table 2), resulting from the successfully reduced training error (Fig.",
+      "method": "extractive",
+      "from_tagged_section": true,
+      "citation": "[Paper 13, Page 5, 6]",
+      "evidence": [
+        {
+          "page": 5,
+          "section": "experiments",
+          "category": "Sentence",
+          "text": "This indicates that the degradation problem is well addressed in this setting and we manage to obtain accuracy gains from increased depth."
+        },
+        {
+          "page": 6,
+          "section": "experiments",
+          "category": "Sentence",
+          "text": "ResNet reduces the top-1 error by 3.5% (Table 2), resulting from the successfully reduced training error (Fig."
+        }
+      ]
+    },
+    "Limitations": {
+      "summary": "But there are still open problems on such aggressively deep models.",
+      "method": "extractive",
+      "from_tagged_section": true,
+      "citation": "[Paper 13, Page 8]",
+      "evidence": [
+        {
+          "page": 8,
+          "section": "experiments",
+          "category": "Limitations",
+          "text": "loser to zero than the non-residual functions. We also notice that the deeper ResNet has smaller magnitudes of responses, as evidenced by the comparisons among ResNet-20, 56, and 110 in Fig. 7. When there are more layers, an individual layer of ResNets tends to modify the signal less. Exploring Over 1000 layers. We explore an aggressively deep model of over 1000 layers. We set n = 200 that leads to a 1202-layer network, which is trained as described above. Our method shows no optimization difﬁculty, and this 103-layer network is able to achieve training error <0.1% (Fig. 6, right). Its test error is still fairly good (7.93%, Table 6). But there are still open problems on such aggressively de"
+        }
+      ]
+    }
+  }
+}
