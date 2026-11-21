@@ -1,3 +1,4 @@
+import gc
 import os
 import logging
 import chromadb
@@ -15,7 +16,12 @@ chroma_client = chromadb.PersistentClient(path=CHROMA_DATA_PATH)
 # Default (laptop): sentence-transformers, exactly as before.
 # Small servers: set EMBED_BACKEND=onnx. This is the SAME model (all-MiniLM-L6-v2)
 # run with ONNX, which needs far less memory because it does not load PyTorch.
-if os.getenv("EMBED_BACKEND", "").strip().lower() == "onnx":
+if os.getenv("EMBED_BASE_URL", "").strip():
+    # Hosted embedding API (nothing is loaded into the server's memory)
+    from backend.services.hosted_embedding import HostedEmbeddingFunction
+    print("Using hosted embedding API:", os.getenv("EMBED_MODEL", ""))
+    sentence_transformer_ef = HostedEmbeddingFunction()
+elif os.getenv("EMBED_BACKEND", "").strip().lower() == "onnx":
     print("Loading embedding model (all-MiniLM-L6-v2, ONNX, low memory)...")
     sentence_transformer_ef = embedding_functions.DefaultEmbeddingFunction()
 else:
@@ -37,7 +43,7 @@ def store_chunks_in_vector_db(
     project_id: int,
     paper_id: int,
     chunks: list[dict],
-    batch_size: int = 100,
+    batch_size: int | None = None,
     paper_title: str = ""
 ) -> int:
     """
@@ -47,6 +53,10 @@ def store_chunks_in_vector_db(
     """
     if not chunks:
         return 0
+
+    # Small servers: set EMBED_BATCH_SIZE=8 so fewer chunks are embedded at once (less memory).
+    if not batch_size:
+        batch_size = int(os.getenv("EMBED_BATCH_SIZE", "100"))
 
     collection = get_or_create_collection(project_id)
 
@@ -88,6 +98,8 @@ def store_chunks_in_vector_db(
             metadatas=metadatas,
             ids=ids
         )
+        del documents, metadatas, ids, batch
+        gc.collect()
 
     return total_chunks
 
