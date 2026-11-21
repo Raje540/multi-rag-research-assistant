@@ -20,6 +20,10 @@ OLLAMA_MODEL = os.getenv("OLLAMA_MODEL", "llama3.2:3b")
 LLM_BASE_URL = os.getenv("LLM_BASE_URL", "").strip().rstrip("/")
 LLM_API_KEY = os.getenv("LLM_API_KEY", "").strip()
 LLM_MODEL = os.getenv("LLM_MODEL", "").strip()
+# Only for "reasoning" models (for example openai/gpt-oss-20b): set LLM_REASONING_EFFORT=low.
+# Such models spend part of max_tokens on hidden thinking, so extra room is added.
+LLM_REASONING_EFFORT = os.getenv("LLM_REASONING_EFFORT", "").strip().lower()
+LLM_EXTRA_TOKENS = int(os.getenv("LLM_EXTRA_TOKENS", "400"))
 
 
 def hosted() -> bool:
@@ -37,6 +41,10 @@ def generate(prompt: str, *, timeout: int = 180, temperature=None, max_tokens=No
         body = {"model": LLM_MODEL, "messages": [{"role": "user", "content": prompt}]}
         if temperature is not None:
             body["temperature"] = temperature
+        if LLM_REASONING_EFFORT:
+            body["reasoning_effort"] = LLM_REASONING_EFFORT
+            if max_tokens is not None:
+                max_tokens += LLM_EXTRA_TOKENS
         if max_tokens is not None:
             body["max_tokens"] = max_tokens
         headers = {"Authorization": f"Bearer {LLM_API_KEY}"} if LLM_API_KEY else {}
