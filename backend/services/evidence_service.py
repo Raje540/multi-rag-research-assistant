@@ -15,6 +15,7 @@ from datetime import datetime
 
 import requests
 
+from backend.services import llm_client
 from backend.services.vector_service import search_similar_chunks, get_or_create_collection
 from backend.services.rag_service import _is_low_value, _strip_panel_labels
 from backend.services.pdf_service import looks_like_references
@@ -26,7 +27,7 @@ OLLAMA_MODEL = os.getenv("OLLAMA_MODEL", "llama3.2:3b")
 OLLAMA_TIMEOUT = int(os.getenv("OLLAMA_TIMEOUT", "180"))
 
 # Bump this whenever the analysis logic changes: results saved by an older version are ignored
-CODE_VERSION = "18"
+CODE_VERSION = "21"
 
 ANALYSIS_DIR = os.path.join("data", "analysis")
 os.makedirs(ANALYSIS_DIR, exist_ok=True)
@@ -348,19 +349,8 @@ EVIDENCE:
 {blocks}
 
 ANSWER:"""
-    res = requests.post(
-        OLLAMA_URL,
-        json={
-            "model": OLLAMA_MODEL,
-            "prompt": prompt,
-            "stream": False,
-            "keep_alive": "10m",
-            "options": {"temperature": 0.1, "num_predict": 120, "num_ctx": 2048},
-        },
-        timeout=OLLAMA_TIMEOUT,
-    )
-    res.raise_for_status()
-    text = (res.json().get("response") or "").strip()
+    text = llm_client.generate(prompt, timeout=OLLAMA_TIMEOUT, temperature=0.1,
+                               max_tokens=120, num_ctx=2048, keep_alive="10m")
     text = re.sub(r"^[\s\-\*•]+", "", text)          # drop leading bullets
     if not text:
         raise ValueError("empty answer from the model")
@@ -458,6 +448,15 @@ def _tidy_cell(text: str, limit: int = 450) -> str:
     return cut.rsplit(" ", 1)[0].rstrip(",;:") + "…"
 
 
+_CITE_PAREN = re.compile(r"\s*\((?:[A-Z][^()]{0,60}?\bet al\.?,?\s*\d{4}[a-z]?|[A-Z][A-Za-z\-]+(?: and [A-Z][A-Za-z\-]+)?,\s*\d{4}[a-z]?)(?:;[^()]{0,60}?\d{4}[a-z]?)*\)")
+_CITE_NUM = re.compile(r"\s*\[\d{1,3}(?:\s*[,\u2013-]\s*\d{1,3})*\]")
+
+
+def _strip_cites(text: str) -> str:
+    """For Dataset and Methodology cells only: '(Kwiatkowski et al., 2019)' and '[29]' make a cell long and hard to read."""
+    return re.sub(r"\s{2,}", " ", _CITE_NUM.sub("", _CITE_PAREN.sub("", text or ""))).strip()
+
+
 def _extractive_summary(dimension: str, evidence: list) -> str:
     """Pick the 1-2 sentences that best match the dimension's keywords."""
     keywords = DIMENSIONS[dimension]["keywords"]
@@ -498,11 +497,13 @@ _LIMIT_CUES = [
     "remain open", "remains open", "unsolved", "beyond the scope", "left for future",
     "challenging issues", "remain challenging", "remains a challenge", "remains challenging", "have yet to",
     "has yet to", "future studies", "future investigation", "could be extended", "can be extended",
+    "challenges remain", "many challenges", "another challenge", "direction of future", "direction for future",
+    "exciting direction", "we leave",
 ]
 # Inside a section called "Open issues" / "Future work" / "Limitations", plainer wording also counts
 _LIMIT_SECTION = re.compile(r"open|future|limitation|discussion|conclusion|challenge", re.I)
 # "we will extend X" is a plan; "we will discuss / describe / use ..." only walks the reader through the paper
-_WILL_PLAN = re.compile(r"\bwe will (?!(?:also |then |first |next |now )?(?:discuss|describe|present|show|see|use|introduce|explain|"
+_WILL_PLAN = re.compile(r"\bwe will (?!now\b)(?!(?:also |then |first |next |now )?(?:discuss|describe|present|show|see|use|introduce|explain|"
                         r"provide|give|report|review|cover|define|detail|refer|denote|call|elaborate|focus|begin|start|assume|"
                         r"write|let|follow|derive|summari[sz]e|illustrate|highlight|take|cite|mention|note)\b)", re.I)
 # The word "limitation" alone is weak: it also appears in background ("ChatGPT ... limitations of pretraining data")
@@ -542,6 +543,7 @@ def limitation_candidates(evidence: list) -> list:
         section_name = str(e.get("section", ""))
         in_section = bool(_LIMIT_SECTION.search(section_name))
         prev = ""
+        since_heading = None                                      # counts sentences after a "Limitations" heading in this chunk
         for s in _sentences(text):
             before, prev = prev, _CAPS_HEADING.sub("", s.strip())
             s = _CAPS_HEADING.sub("", s.strip())
@@ -561,6 +563,16 @@ def limitation_candidates(evidence: list) -> list:
                 continue                                          # "There are several options for future work." (lead-in)
             cues = [c for c in _LIMIT_CUES if _cue_in(c, low)]
             section_cues = [c for c in _LIMIT_CUES_SECTION if _cue_in(c, low)] if in_section else []
+            # A paragraph that starts with the heading "Limitations": its first few sentences ARE the limitations
+            if re.match(r"^(?:[A-Z]\.\s*|\d+(?:\.\d+)*\s*)?limitations?\b", s, re.I):
+                since_heading = 0
+            elif since_heading is not None:
+                since_heading += 1
+            if (not section_cues and since_heading is not None and 1 <= since_heading <= 5 and len(s.split()) >= 8
+                    and not _FINDING.search(s)):
+                section_cues = ["inside a Limitations paragraph"]   # "ConvNeXt may be more suited for certain tasks ..."
+                if re.search(r"\b(?:may|might|cannot|can not|do not|does not|did not|not able|unable|however|although|even more)\b", low):
+                    section_cues.append("hedge")                    # a hedged statement is the stronger limitation
             hits = len(cues) + len(section_cues)
             planned = bool(_WILL_PLAN.search(low))
             if planned:
@@ -571,7 +583,8 @@ def limitation_candidates(evidence: list) -> list:
                     continue
             if hits and (planned or re.search(r"\bwe (?:plan|intend)\b|\bplan to\b", low)):
                 hits += 0.5                                       # a concrete plan beats a general remark
-            if hits and len(s.split()) <= 10 and re.search(r"\b(?:this|these|that|it|them)\b", low) and len(before.split()) >= 6:
+            if hits and len(s.split()) <= 10 and len(before.split()) >= 6 and re.search(
+                    r"\b(?:address|tackle|explore|investigate|study|handle|solve|leave|pursue|resolve|examine|extend|improve|fix|do)\s+(?:this|these|that|it|them)\b|^(?:this|these|that|it)\b", low):
                 s = before + " " + s                              # "We hope to address this in future work." needs the sentence before it
             if hits:
                 scored.append({"hits": hits, "order": order, "sentence": s,
@@ -817,8 +830,8 @@ def _result_items(sents: list, survey: bool) -> list:
             continue
         if not _METRIC_ANY.search(s) and not re.search(r"\b(?:outperform\w*|state[- ]of[- ]the[- ]art|surpass\w*|beats?)\b", s, re.I):
             continue                                    # a result talks about a metric or a comparison
-        if not _VALUE.search(s) and not re.search(r"\b(?:than|outperform\w*|state-of-the-art|degrad\w+|struggl\w+|highest|lowest|best)\b", s, re.I):
-            continue                                    # a finding is a comparison or a measured value
+        if not _VALUE.search(s) and not re.search(r"\b(?:than|outperform\w*|state-of-the-art|degrad\w+|struggl\w+|highest|lowest)\b", s, re.I):
+            continue                                    # a finding is a comparison or a measured value ("report the best accuracy" is setup)
         sec_l = x["section"].lower()
         own = bool(_FIRST_PERSON.search(s) or re.search(r"\b(?:our|this (?:paper|work|study))\b|\b(?:the|these) (?:results?|experiments?|analysis|evaluation|findings?)\b", s, re.I))
         if not own and not re.search(r"result|experiment|evaluation|analysis", sec_l):
@@ -961,7 +974,18 @@ def analyze_paper(project_id: int, paper_id: int, title: str, use_llm: bool = Tr
         if dim == "Novelty":
             summary = _novelty_sentences(evidence)              # no model: the authors' own claims
         elif dim == "Limitations":
-            summary = _limitation_sentences(evidence)           # no model: copied from the paper
+            summary = None
+            try:
+                from backend.services import gap_service       # same whole-paper reader as Gap Detection, so the two always agree
+                top = sorted(gap_service.paper_gaps(project_id, paper_id), key=lambda c: (-gap_service._score(c), c["order"]))[:2]
+                top.sort(key=lambda c: (c["page"], c["order"]))
+                summary = _join_capped([c["sentence"] for c in top], 450) if top else "Not stated"
+                if top:
+                    evidence = [c["chunk"] for c in top]
+            except Exception as exc:
+                logger.warning("Whole-paper limitation reader failed (%s); using the searched text.", exc)
+            if summary is None:
+                summary = _limitation_sentences(evidence)       # no model: copied from the paper
         elif dim == "Results":
             summary = _join_capped([x["sentence"] for x in result_items], 450) if result_items else "Not stated"   # copied, never written by the model
         elif dim == "Dataset" and survey and not dataset_items:
@@ -979,15 +1003,19 @@ def analyze_paper(project_id: int, paper_id: int, title: str, use_llm: bool = Tr
                 llm_ok = False  # do not wait for the model again for the rest of this paper
         if summary is None:
             summary = _extractive_summary(dim, evidence)
+        raw_summary = summary
         if summary.strip() not in ("Not stated", ""):
+            if dim in ("Dataset", "Methodology"):
+                summary = _strip_cites(summary)               # readable list; Novelty/Limitations/Results stay word for word
             summary = _tidy_cell(summary)
+            raw_summary = _tidy_cell(raw_summary)
 
         found = summary.strip() not in ("Not stated", "")
         if dim in ("Novelty", "Limitations"):
             # Cite only the chunks that contain the copied sentences (or a few, if nothing was found)
             evidence = _used_chunks(evidence, summary) or evidence[:3]
         elif method == "extractive" and found:
-            evidence = _used_chunks(evidence, summary) or evidence
+            evidence = _used_chunks(evidence, raw_summary) or evidence
 
         dimensions[dim] = {
             "summary": summary,
@@ -1006,7 +1034,7 @@ def analyze_paper(project_id: int, paper_id: int, title: str, use_llm: bool = Tr
         "title": title,
         "code_version": CODE_VERSION,
         "analyzed_at": datetime.utcnow().isoformat(timespec="seconds") + "Z",
-        "model": OLLAMA_MODEL if use_llm else None,
+        "model": llm_client.model_name() if use_llm else None,
         "dimensions": dimensions,
     }
     _save(paper_id, result)

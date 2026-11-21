@@ -18,6 +18,7 @@ from datetime import datetime
 import requests
 
 from backend.services import evidence_service as ev
+from backend.services import llm_client
 
 logger = logging.getLogger(__name__)
 
@@ -81,14 +82,9 @@ def _llm_title(sentence: str):
     prompt = ("Write a short title (4 to 10 words) for the research gap in this sentence. "
               "Use only words from the sentence. No quotes, no full stop, no introduction.\n\n"
               f"Sentence: {sentence}\n\nTitle:")
-    res = requests.post(
-        ev.OLLAMA_URL,
-        json={"model": ev.OLLAMA_MODEL, "prompt": prompt, "stream": False, "keep_alive": "10m",
-              "options": {"temperature": 0.1, "num_predict": 30, "num_ctx": 1024}},
-        timeout=min(ev.OLLAMA_TIMEOUT, 90),
-    )
-    res.raise_for_status()
-    title = (res.json().get("response") or "").strip().split("\n")[0]
+    raw = llm_client.generate(prompt, timeout=min(ev.OLLAMA_TIMEOUT, 90), temperature=0.1,
+                              max_tokens=30, num_ctx=1024, keep_alive="10m")
+    title = raw.split("\n")[0] if raw else ""
     title = re.sub(r"^(?:title\s*:\s*)", "", title, flags=re.I).strip(" \"'*-•.")
     words = title.split()
     if not (3 <= len(words) <= 12):

@@ -11,11 +11,18 @@ os.makedirs(CHROMA_DATA_PATH, exist_ok=True)
 
 chroma_client = chromadb.PersistentClient(path=CHROMA_DATA_PATH)
 
-# Initialize ChromaDB's native embedding function (loads model into RAM once)
-print("Loading local embedding model (all-MiniLM-L6-v2)...")
-sentence_transformer_ef = embedding_functions.SentenceTransformerEmbeddingFunction(
-    model_name="all-MiniLM-L6-v2"
-)
+# Initialize the embedding function (loads the model into RAM once).
+# Default (laptop): sentence-transformers, exactly as before.
+# Small servers: set EMBED_BACKEND=onnx. This is the SAME model (all-MiniLM-L6-v2)
+# run with ONNX, which needs far less memory because it does not load PyTorch.
+if os.getenv("EMBED_BACKEND", "").strip().lower() == "onnx":
+    print("Loading embedding model (all-MiniLM-L6-v2, ONNX, low memory)...")
+    sentence_transformer_ef = embedding_functions.DefaultEmbeddingFunction()
+else:
+    print("Loading local embedding model (all-MiniLM-L6-v2)...")
+    sentence_transformer_ef = embedding_functions.SentenceTransformerEmbeddingFunction(
+        model_name="all-MiniLM-L6-v2"
+    )
 
 def get_or_create_collection(project_id: int):
     """Get or create a dedicated ChromaDB collection with embedded vector function."""

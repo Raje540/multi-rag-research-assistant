@@ -204,18 +204,12 @@ def generate_answer_with_llm(prompt: str, evidence_chunks: list, query: str = ""
         query = m.group(1).strip() if m else ""
 
     try:
-        res = requests.post(
-            OLLAMA_URL,
-            json={"model": OLLAMA_MODEL, "prompt": prompt, "stream": False},
-            timeout=OLLAMA_TIMEOUT,
-        )
-        if res.status_code == 200:
-            text = res.json().get("response", "").strip()
-            if text:
-                return text
-        logger.warning("Ollama returned status %s: %s", res.status_code, res.text[:200])
+        text = llm_client.generate(prompt, timeout=OLLAMA_TIMEOUT)
+        if text:
+            return text
+        logger.warning("The language model returned an empty answer, using extractive fallback")
     except Exception as exc:
-        logger.warning("Ollama call failed, using extractive fallback: %s", exc)
+        logger.warning("Language model call failed, using extractive fallback: %s", exc)
 
     return extractive_answer(query, evidence_chunks)
 
