@@ -1,0 +1,10 @@
+# Backend-only requirements for a small server (Render).
+# No torch / sentence-transformers: the server uses EMBED_BACKEND=onnx instead.
+fastapi
+uvicorn
+sqlalchemy
+python-multipart
+requests
+pydantic
+pymupdf
+chromadb
